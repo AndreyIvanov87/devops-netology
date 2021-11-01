@@ -8,3 +8,4 @@ new line
     файлы crash.log , override.tf, override.tf.json, .terraformrc, terraform.rc
     файлы название который кончается на _override.tf, _override.tf.json
     файлы с расширением .tfstate, .tfvars и где после расширения .tfstate. идет еще что-то.
+..
