@@ -6,3 +6,4 @@ first comment
 - файлы название который кончается на _override.tf, _override.tf.json
 - файлы с расширением .tfstate, .tfvars и где после расширения .tfstate. идет еще что-то.
 
+new test line
