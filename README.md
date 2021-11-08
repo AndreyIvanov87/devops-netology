@@ -94,6 +94,3 @@ git blame -C -L 15,25 synchronized_writers.go
 5ac311e2a9 (Martin Atkins 2017-05-03 16:25:41 -0700 25) }
 
 
-
-
-
