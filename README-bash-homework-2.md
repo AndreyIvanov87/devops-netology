@@ -17,6 +17,21 @@
 5. Получится ли одновременно передать команде файл на stdin и вывести ее stdout в другой файл? Приведите работающий пример.  
 	cat /var/log/auth.log  | grep sudo > /tmp/result.txt  
 
+	----->>>> доработано  
+	Redirecting Input  
+       Redirection of input causes the file whose name results from the expansion of word to be opened for reading on file descriptor n,  
+       or the standard input (file descriptor 0) if n is not specified.  
+       The general format for redirecting input is:  
+              [n]<word  
+
+	vagrant@vagrant:/tmp$ grep sudo < /var/log/auth.log > /tmp/result.txt   
+	vagrant@vagrant:/tmp$ cat /tmp/result.txt   
+	Jul 28 17:57:27 vagrant sudo: pam_unix(sudo:session): session closed for user root  
+	Jul 28 17:57:27 vagrant sudo:  vagrant : TTY=unknown ; PWD=/home/vagrant ; USER=root ; COMMAND=/usr/bin/sh -eux /tmp/script_3439.sh  
+	Jul 28 17:57:27 vagrant sudo: pam_unix(sudo:session): session opened for user root by (uid=0)  
+	Jul 28 17:59:17 vagrant sudo: pam_unix(sudo:session): session closed for user root  
+
+
 6. Получится ли находясь в графическом режиме, вывести данные из PTY в какой-либо из эмуляторов TTY? Сможете ли вы наблюдать выводимые данные?  
 	ls > /dev/tty3   
 	Посмотреть результат: ctrl+alt+f3
