@@ -68,6 +68,15 @@ vagrant@vagrant:~$ head /tmp/open-simple.log
 vagrant@vagrant:~$ grep -c openat  /tmp/open-simple.log  
 2137  
 
+------------>>>>>>>>>>>>>>>>Доработанное задание  
+vagrant@vagrant:~$ sudo  opensnoop-bpfcc -d 1  
+PID    COMM               FD ERR PATH  
+785    vminfo              4   0 /var/run/utmp  
+609    dbus-daemon        -1   2 /usr/local/share/dbus-1/system-services  
+609    dbus-daemon        18   0 /usr/share/dbus-1/system-services  
+609    dbus-daemon        -1   2 /lib/dbus-1/system-services  
+609    dbus-daemon        18   0 /var/lib/snapd/dbus-1/system-services/  
+  
 	
 
 6.    Какой системный вызов использует uname -a? Приведите цитату из man по этому системному вызову, где описывается альтернативное местоположение в /proc, где можно узнать версию ядра и релиз ОС.    
