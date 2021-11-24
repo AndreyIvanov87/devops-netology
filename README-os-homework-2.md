@@ -82,6 +82,7 @@ ________________________________
 	 
 
 2. Ознакомьтесь с опциями node_exporter и выводом `/metrics` по-умолчанию. Приведите несколько опций, которые вы бы выбрали для базового мониторинга хоста по CPU, памяти, диску и сети.  
+________________________________
 	vagrant@vagrant:~$ curl http://localhost:9100/metrics  | grep node_load  
 	  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current  
 	                                 Dload  Upload   Total   Spent    Left  Speed  
@@ -132,6 +133,7 @@ node_disk_writes_completed_total{device="sda"} 775
 	    ```  
 
     После успешной перезагрузки в браузере *на своем ПК* (не в виртуальной машине) вы должны суметь зайти на `localhost:19999`. Ознакомьтесь с метриками, которые по умолчанию собираются Netdata и с комментариями, которые даны к этим метрикам.  
+________________________________
   
 	sudo apt install -y netdata  
 	sudo vim.tiny /etc/netdata/netdata.conf   
@@ -197,6 +199,7 @@ add more charts
 
 4. Можно ли по выводу `dmesg` понять, осознает ли ОС, что загружена не на настоящем оборудовании, а на системе виртуализации?  
  Да (в описании оборудования указано что диск, видео - виртуальные, а так же прямо сказано что применятеся виртуализация KVM):  
+________________________________
 	vagrant@vagrant:~$ dmesg | grep VBOX  
 	[    0.054404] ACPI: RSDP 0x00000000000E0000 000024 (v02 VBOX  )  
 	[    0.054406] ACPI: XSDT 0x000000007FFF0030 00003C (v01 VBOX   VBOXXSDT 00000001 ASL  00000061)  
@@ -215,16 +218,17 @@ add more charts
 	[    0.726735] vboxvideo: module verification failed: signature and/or required key missing - tainting kernel  
 
 5. Как настроен sysctl `fs.nr_open` на системе по-умолчанию? Узнайте, что означает этот параметр. Какой другой существующий лимит не позволит достичь такого числа (`ulimit --help`)?  
-	root@vagrant:~# sysctl fs.nr_open  
+	root@vagrant:# sysctl fs.nr_open  
 	fs.nr_open = 1048576	
 This denotes the maximum number of file-handles a process can allocate. Default value is 1024*1024 (1048576) which should be enough for most machines. То есть максимальное количество файлов которое может открыть один процесс.  
  Другой существующий лимит относится к командной оболочки.    
 ulimit используется для ресурсов, занятых процессом запуска оболочки, и может использоваться для установки системных ограничений.  
-	vagrant@vagrant:~$ ulimit -n  
+	vagrant@vagrant:$ ulimit -n  
 	1024  
 
 
 6. Запустите любой долгоживущий процесс (не `ls`, который отработает мгновенно, а, например, `sleep 1h`) в отдельном неймспейсе процессов; покажите, что ваш процесс работает под PID 1 через `nsenter`. Для простоты работайте в данном задании под root (`sudo -i`). Под обычным пользователем требуются дополнительные опции (`--map-root-user`) и т.д.  
+________________________________
 	screen  
 	root@vagrant:~# unshare -f --pid --mount-proc sleep 100  
 	root       90300  0.0  0.0   8080   596 pts/2    S+   12:10   0:00 unshare -f --pid --mount-proc sleep 100  
