@@ -6,7 +6,7 @@
     * предусмотрите возможность добавления опций к запускаемому процессу через внешний файл (посмотрите, например, на `systemctl cat cron`),  
     * удостоверьтесь, что с помощью systemctl процесс корректно стартует, завершается, а после перезагрузки автоматически поднимается.  
 
-vagrant@vagrant:~$ wget https://github.com/prometheus/node_exporter/releases/download/v1.3.0/node_exporter-1.3.0.linux-amd64.tar.gz  
+`vagrant@vagrant:~$ wget https://github.com/prometheus/node_exporter/releases/download/v1.3.0/node_exporter-1.3.0.linux-amd64.tar.gz  
 node_exporter-1.3.0.linux-amd64.ta 100%[================================================================>]   8.61M  9.50MB/s    in 0.9s      
 vagrant@vagrant:~$ tar xvfz node_exporter-1.3.0.linux-amd64.tar.gz   
 node_exporter-1.3.0.linux-amd64/  
@@ -33,7 +33,7 @@ ExecStart=/usr/sbin/node_exporter $OPTIONS
    
 [Install]  
 WantedBy=multi-user.target  
-  
+`  
 ________________________________  
 root@vagrant:~# systemctl status node_exporter  
 ● node_exporter.service - Node Exporter  
