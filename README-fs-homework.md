@@ -3,10 +3,10 @@
 1. Узнайте о [sparse](https://ru.wikipedia.org/wiki/%D0%A0%D0%B0%D0%B7%D1%80%D0%B5%D0%B6%D1%91%D0%BD%D0%BD%D1%8B%D0%B9_%D1%84%D0%B0%D0%B9%D0%BB) (разряженных) файлах.  
 Это файл, в котором последовательности нулевых байтов[1] заменены на информацию об этих последовательностях (список дыр). 
 
-1. Могут ли файлы, являющиеся жесткой ссылкой на один объект, иметь разные права доступа и владельца? Почему?  
+2. Могут ли файлы, являющиеся жесткой ссылкой на один объект, иметь разные права доступа и владельца? Почему?  
 Нет. Файл  представляет собой структуру блоков данных на диске, имеющую уникальный индексный дескриптор (или i-node) и набор атрибутов (метаинформацию). Жёсткая ссылка связывает индексный дескриптор файла с каталогом и даёт ему имя. То есть файл в данном случае будет один , и мета информация (права, владелец) будет одна, и повторятся для всех хардлинков на него. Разные права могут быть у симлинков.
 
-1. Сделайте `vagrant destroy` на имеющийся инстанс Ubuntu. Замените содержимое Vagrantfile следующим:  
+3. Сделайте `vagrant destroy` на имеющийся инстанс Ubuntu. Замените содержимое Vagrantfile следующим:  
 _________________________  
     ```bash  
     Vagrant.configure("2") do |config|  
@@ -37,7 +37,7 @@ ___________________________
 	==> default: Setting the name of the VM: vagrant_default_1637842073513_30921
 
 
-1. Используя `fdisk`, разбейте первый диск на 2 раздела: 2 Гб, оставшееся пространство.
+4. Используя `fdisk`, разбейте первый диск на 2 раздела: 2 Гб, оставшееся пространство.
 _________________________  
 	Disk /dev/sdb: 2.51 GiB, 2684354560 bytes, 5242880 sectors  
 	Disk model: VBOX HARDDISK     
@@ -51,7 +51,7 @@ _________________________
 	/dev/sdb1     2048 4196351 4194304    2G Linux filesystem  
 	/dev/sdb2  4196352 5242846 1046495  511M Linux filesystem  
 	  
-1. Используя `sfdisk`, перенесите данную таблицу разделов на второй диск.
+5. Используя `sfdisk`, перенесите данную таблицу разделов на второй диск.
 ___________________________  
 	vagrant@vagrant:~$ sudo sfdisk -d /dev/sdb | sudo  sfdisk /dev/sdc   
 	Checking that no-one is using this disk right now ... OK  
@@ -85,7 +85,7 @@ ___________________________
 	Calling ioctl() to re-read partition table.  
 	Syncing disks.  
 
-1. Соберите `mdadm` RAID1 на паре разделов 2 Гб.  
+6. Соберите `mdadm` RAID1 на паре разделов 2 Гб.  
 ______________________________  
 	root@vagrant:~# mdadm --create --verbose /dev/md0 -l 1 -n 2 /dev/sdb1 /dev/sdc1  
 	mdadm: Note: this array has metadata at the start and  
@@ -98,7 +98,7 @@ ______________________________
 	mdadm: Defaulting to version 1.2 metadata  
 	mdadm: array /dev/md0 started.  
 
-1. Соберите `mdadm` RAID0 на второй паре маленьких разделов.  
+7. Соберите `mdadm` RAID0 на второй паре маленьких разделов.  
 _______________________________  
 	root@vagrant:~# mdadm --create --verbose /dev/md1 --level=0 --raid-devices=2 /dev/sdb2 /dev/sdc2  
 	mdadm: chunk size defaults to 512K  
@@ -109,7 +109,7 @@ _______________________________
 	mdadm: Defaulting to version 1.2 metadata  
 	mdadm: array /dev/md1 started.  
 
-1. Создайте 2 независимых PV на получившихся md-устройствах.  
+8. Создайте 2 независимых PV на получившихся md-устройствах.  
 _______________________________  
 	root@vagrant:~# pvcreate /dev/md0  
 	  Physical volume "/dev/md0" successfully created.  
@@ -121,7 +121,7 @@ _______________________________
 	  /dev/md1             lvm2 ---  1017.00m 1017.00m
 	  /dev/sda5  vgvagrant lvm2 a--   <63.50g       0 
 
-1. Создайте общую volume-group на этих двух PV.
+9. Создайте общую volume-group на этих двух PV.
 _______________________________  
 	root@vagrant:~# vgcreate myvgtest /dev/md1 /dev/md0
 	  Volume group "myvgtest" successfully created
@@ -136,7 +136,7 @@ _______________________________
 	  vgvagrant   1   2   0 wz--n- <63.50g     0 
 	
 
-1. Создайте LV размером 100 Мб, указав его расположение на PV с RAID0.
+10. Создайте LV размером 100 Мб, указав его расположение на PV с RAID0.
 ______________________________   
 	root@vagrant:~# sudo lvcreate -L 100M -n logical_vol1 myvgtest /dev/md1  
 	  Logical volume "logical_vol1" created.  
@@ -151,7 +151,7 @@ ______________________________
 	  /dev/md1   myvgtest  lvm2 a--  1016.00m 916.00m  
 	  /dev/sda5  vgvagrant lvm2 a--   <63.50g      0   
 
-1. Создайте `mkfs.ext4` ФС на получившемся LV.  
+11. Создайте `mkfs.ext4` ФС на получившемся LV.  
 _____________________________  
 	root@vagrant:~# mkfs.ext4 /dev/myvgtest/logical_vol1 
 	mke2fs 1.45.5 (07-Jan-2020)
@@ -163,18 +163,18 @@ _____________________________
 	Writing superblocks and filesystem accounting information: done
 
 
-1. Смонтируйте этот раздел в любую директорию, например, `/tmp/new`.  
+12. Смонтируйте этот раздел в любую директорию, например, `/tmp/new`.  
 _____________________________  
 	root@vagrant:~# mount /dev/myvgtest/logical_vol1 /mnt/  
 	root@vagrant:~# df -h /mnt/  
 	Filesystem                         Size  Used Avail Use% Mounted on  
 	/dev/mapper/myvgtest-logical_vol1   93M   72K   86M   1% /mnt  
 
-1. Поместите туда тестовый файл, например `wget https://mirror.yandex.ru/ubuntu/ls-lR.gz -O /tmp/new/test.gz`.
+13. Поместите туда тестовый файл, например `wget https://mirror.yandex.ru/ubuntu/ls-lR.gz -O /tmp/new/test.gz`.  
 	wget https://mirror.yandex.ru/ubuntu/ls-lR.gz -O /mnt/test.gz  
 	2021-11-26 09:39:57 (1.12 MB/s) - ‘/mnt/test.gz’ saved [22595572/22595572]  
 
-1. Прикрепите вывод `lsblk`.
+14. Прикрепите вывод `lsblk`.  
 _____________________________  
 	root@vagrant:~# lsblk  
 	NAME                        MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT  
@@ -198,7 +198,7 @@ _____________________________
 	    └─myvgtest-logical_vol1 253:2    0  100M  0 lvm   /mnt  
 
 
-1. Протестируйте целостность файла:
+15. Протестируйте целостность файла:
 
     ```bash
     root@vagrant:~# gzip -t /tmp/new/test.gz
@@ -210,7 +210,7 @@ _________________________
 	root@vagrant:~# echo $?  
 	0  
 
-1. Используя pvmove, переместите содержимое PV с RAID0 на RAID1.
+16. Используя pvmove, переместите содержимое PV с RAID0 на RAID1.
 ________________________  
 	root@vagrant:~# pvmove -n logical_vol1 /dev/md1 /dev/md0 
 	  /dev/md1: Moved: 16.00%
@@ -236,17 +236,17 @@ ________________________
 	└─sdc2                        8:34   0  511M  0 part  
 	  └─md1                       9:1    0 1017M  0 raid0 
 
-1. Сделайте `--fail` на устройство в вашем RAID1 md.
+17. Сделайте `--fail` на устройство в вашем RAID1 md.
 _________________________  
 	root@vagrant:~# mdadm /dev/md0 --fail /dev/sdb1
 	mdadm: set /dev/sdb1 faulty in /dev/md0
 
-1. Подтвердите выводом `dmesg`, что RAID1 работает в деградированном состоянии.
+18. Подтвердите выводом `dmesg`, что RAID1 работает в деградированном состоянии.
 _________________________  
 	[74982.810252] md/raid1:md0: Disk failure on sdb1, disabling device.
 	               md/raid1:md0: Operation continuing on 1 devices.
 
-1. Протестируйте целостность файла, несмотря на "сбойный" диск он должен продолжать быть доступен:
+19. Протестируйте целостность файла, несмотря на "сбойный" диск он должен продолжать быть доступен:
 
     ```bash
 	root@vagrant:~# gzip -t /mnt/test.gz 
@@ -254,6 +254,6 @@ _________________________
 	0
     ```
 
-1. Погасите тестовый хост, `vagrant destroy`.
+20. Погасите тестовый хост, `vagrant destroy`.
 
  
