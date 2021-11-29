@@ -60,7 +60,7 @@ HTTP/1.1 301 Moved Permanently
 	https://github.com/AndreyIvanov87/devops-netology/blob/main/browser-console.png  	
 
 3.    Какой IP адрес у вас в интернете?  
-	inetnum:        95.161.144.0 - 95.161.239.255
+	Your IP is 95.161.166.5
 4.    Какому провайдеру принадлежит ваш IP адрес? Какой автономной системе AS? Воспользуйтесь утилитой whois  
 _____________________________  
 	ivanov@lusankiya:~/vagrant$ sudo apt-get install whois 
