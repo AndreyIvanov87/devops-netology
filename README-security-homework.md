@@ -51,8 +51,8 @@ ___
 	Syntax OK
 	root@vagrant:~# systemctl reload apache2
 
-	https://github.com/AndreyIvanov87/devops-netology/blob/main/self-signed-sert-warning.png
-	https://github.com/AndreyIvanov87/devops-netology/blob/main/sert-info.png
+https://github.com/AndreyIvanov87/devops-netology/blob/main/self-signed-sert-warning.png
+https://github.com/AndreyIvanov87/devops-netology/blob/main/sert-info.png
 
 
 4.    Проверьте на TLS уязвимости произвольный сайт в интернете.
