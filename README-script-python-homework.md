@@ -64,25 +64,91 @@ for result in result_os.split('\n'):
 
 ### Ваш скрипт:
 ```python
-???
+#!/usr/bin/env python3
+
+import os
+
+path = '~/netology/devops-netology'
+bash_command = ["cd "+path, "git status"]
+
+result_os = os.popen(' && '.join(bash_command)).read()
+is_change = False
+for result in result_os.split('\n'):
+    if result.find('изменено') != -1:
+        prepare_result = result.replace('\tизменено:      ', '')
+        print(path+"/"+prepare_result)
+
 ```
 
 ### Вывод скрипта при запуске при тестировании:
+```bash
+ivanov@lusankiya:~/netology/devops-netology$ ./python-test.py 
+~/netology/devops-netology/README-script-bash-homework.md
+~/netology/devops-netology/README-script-python-homework.md
+~/netology/devops-netology/branching/rebase.sh
+
+ivanov@lusankiya:~/netology/devops-netology$ git status 
+На ветке main
+Ваша ветка опережает «origin-ssh/main» на 1 коммит.
+  (используйте «git push», чтобы опубликовать ваши локальные коммиты)
+
+Изменения, которые не в индексе для коммита:
+  (используйте «git add <файл>…», чтобы добавить файл в индекс)
+  (используйте «git restore <файл>…», чтобы отменить изменения в рабочем каталоге)
+	изменено:      README-script-bash-homework.md
+	изменено:      README-script-python-homework.md
+	изменено:      branching/rebase.sh
+
+Неотслеживаемые файлы:
+  (используйте «git add <файл>…», чтобы добавить в то, что будет включено в коммит)
+	.README-script-python-homework.md.swp
+	python-test.py
+
+нет изменений добавленных для коммита
+(используйте «git add» и/или «git commit -a»)
 ```
-???
-```
+
+
 
 ## Обязательная задача 3
 1. Доработать скрипт выше так, чтобы он мог проверять не только локальный репозиторий в текущей директории, а также умел воспринимать путь к репозиторию, который мы передаём как входной параметр. Мы точно знаем, что начальство коварное и будет проверять работу этого скрипта в директориях, которые не являются локальными репозиториями.
 
 ### Ваш скрипт:
 ```python
-???
+#!/usr/bin/env python3
+
+import os
+import sys
+
+if (len(sys.argv)>1):
+	path = sys.argv[1]
+else:	
+	path=os.getcwd()
+	#path = '~/netology/devops-netology'
+bash_command = ["cd "+path, "git status"]
+
+result_os = os.popen(' && '.join(bash_command)).read()
+is_change = False
+for result in result_os.split('\n'):
+    if result.find('изменено') != -1:
+        prepare_result = result.replace('\tизменено:      ', '')
+        print(path+"/"+prepare_result)
+        
 ```
 
 ### Вывод скрипта при запуске при тестировании:
-```
-???
+```bash
+ivanov@lusankiya:~/netology/devops-netology$ ./python-test.py 
+/home/ivanov/netology/devops-netology/README-script-bash-homework.md
+/home/ivanov/netology/devops-netology/README-script-python-homework.md
+/home/ivanov/netology/devops-netology/branching/rebase.sh
+ivanov@lusankiya:~/netology/devops-netology$ ./python-test.py /tmp/
+fatal: не найден git репозиторий (или один из родительских каталогов): .git
+ivanov@lusankiya:~/netology/devops-netology$ ./python-test.py /home/ivanov/netology/devops-netology/
+/home/ivanov/netology/devops-netology//README-script-bash-homework.md
+/home/ivanov/netology/devops-netology//README-script-python-homework.md
+/home/ivanov/netology/devops-netology//branching/rebase.sh
+
 ```
 
 ## Обязательная задача 4
@@ -90,12 +156,50 @@ for result in result_os.split('\n'):
 
 ### Ваш скрипт:
 ```python
-???
+#!/usr/bin/env python3
+
+import os
+import sys
+
+dictglob={}
+f = open('/tmp/ip-log.txt','r')
+for line in f:
+	list1=list(line.split(" "))
+	dictglob[list1[0]]=list1[1]
+f.close()
+#print(dictglob)
+
+f = open('/tmp/ip-log.txt','w')
+sitelist=("drive.google.com","mail.google.com","google.com")
+
+for site in sitelist:
+	bash_command=("host "+site+"| grep  address| head -n 1  | awk '{print $4}'")
+	#print(bash_command)
+	result_os = os.popen(bash_command).read()	
+	print("http://"+site, " - ", result_os)
+	if (dictglob[site] != result_os ):
+		print("[ERROR]", "http://"+site, "IP mismatch:", dictglob[site] , result_os)
+	f.write(site+" "+result_os)
+f.close()
+
 ```
 
 ### Вывод скрипта при запуске при тестировании:
-```
-???
+```bash
+ivanov@lusankiya:~/netology/devops-netology$ cat /tmp/ip-log.txt 
+drive.google.com 173.194.221.194
+mail.google.com 216.58.214.45
+google.com 142.251.39.110
+ivanov@lusankiya:~/netology/devops-netology$ ./python-test-4.py
+http://drive.google.com  -  173.194.221.194
+
+http://mail.google.com  -  216.58.214.5
+
+[ERROR] http://mail.google.com IP mismatch: 216.58.214.45
+ 216.58.214.5
+
+http://google.com  -  142.251.39.110
+
 ```
 
 ## Дополнительное задание (со звездочкой*) - необязательно к выполнению
