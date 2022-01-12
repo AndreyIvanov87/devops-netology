@@ -352,4 +352,8 @@ https://github.com/AndreyIvanov87/devops-netology/blob/main/new-sert-updated.png
 
 
 
-
+___
+	из чата
+	$ cat vault.example.com.crt | jq -r .data.certificate > vault.example.com.crt.pem
+	$ cat vault.example.com.crt | jq -r .data.issuing_ca >> vault.example.com.crt.pem
+	$ cat vault.example.com.crt | jq -r .data.private_key > vault.example.com.crt.key
