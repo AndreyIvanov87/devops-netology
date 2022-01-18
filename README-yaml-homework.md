@@ -9,7 +9,7 @@
 
 ## Обязательная задача 1
 Мы выгрузили JSON, который получили через API запрос к нашему сервису:
-```yaml
+```json
     { "info" : "Sample JSON output from our service\t",
         "elements" :[
             { "name" : "first",
@@ -25,7 +25,7 @@
 ```
   Нужно найти и исправить все ошибки, которые допускает наш сервис
 
-```yaml
+```json
     { "info" : "Sample JSON output from our service\t",
         "elements" :[
             { "name" : "first",
