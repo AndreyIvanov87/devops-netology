@@ -46,22 +46,80 @@
 
 ### Ваш скрипт:
 ```python
-???
+#!/usr/bin/env python3
+
+import os
+# import sys
+import json
+import yaml
+
+dictglob = {}
+f = open('/tmp/ip-log.txt', 'r')
+for line in f:
+	list1 = list(line.split(" "))
+	dictglob[list1[0]] = list1[1]
+f.close()
+# print(dictglob)
+
+f = open('/tmp/ip-log.txt', 'w')
+fjson = open('/tmp/ip-log.json', 'w')
+fyaml = open('/tmp/ip-log.yaml', 'w')
+sitelist = ("drive.google.com", "mail.google.com", "google.com")
+datayaml = []
+
+for site in sitelist:
+	bash_command = ("host "+site+"| grep  address| head -n 1  | awk '{print $4}'")
+	# print(bash_command)
+	result_os = os.popen(bash_command).read()	
+	print("http://"+site, " - ", result_os)
+	if (dictglob[site] != result_os):
+		print("[ERROR]", "http://"+site, "IP mismatch:", dictglob[site], result_os)
+	f.write(site+" "+result_os)
+
+	data = {site: result_os.replace("\n", "")}
+	json.dump(data, fjson)
+	fjson.write('\n')
+	datayaml.append({site: result_os.replace("\n", "")})
+
+
+yaml.dump({"services": datayaml}, fyaml)
+
+f.close()
+fyaml.close()
+fjson.close()
+
 ```
 
 ### Вывод скрипта при запуске при тестировании:
 ```
-???
+/usr/bin/python3.8 /home/ivanov/netology/devops-netology/python-test-4.py
+http://drive.google.com  -  142.251.1.194
+
+[ERROR] http://drive.google.com IP mismatch: 74.125.131.194
+ 142.251.1.194
+
+http://mail.google.com  -  74.125.131.17
+
+http://google.com  -  173.194.222.100
+
+
+Process finished with exit code 0
+
 ```
 
 ### json-файл(ы), который(е) записал ваш скрипт:
 ```json
-???
+{"drive.google.com": "142.251.1.194"}
+{"mail.google.com": "74.125.131.17"}
+{"google.com": "173.194.222.100"}
 ```
 
 ### yml-файл(ы), который(е) записал ваш скрипт:
 ```yaml
-???
+services:
+- drive.google.com: 142.251.1.194
+- mail.google.com: 74.125.131.17
+- google.com: 173.194.222.100
 ```
 
 ## Дополнительное задание (со звездочкой*) - необязательно к выполнению
