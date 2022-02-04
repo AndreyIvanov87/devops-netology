@@ -19,15 +19,43 @@
 Для получения зачета, вам необходимо предоставить:
 - Скриншот страницы, как на слайде из презентации (слайд 37).
 
+```bash
+vagrant@server1:~/packer$ packer  build  centos-7-base.json 
+....................
+    yandex: Complete!
+==> yandex: Stopping instance...
+==> yandex: Deleting instance...
+    yandex: Instance has been deleted!
+==> yandex: Creating image: centos-7-base
+==> yandex: Waiting for image to complete...
+==> yandex: Success image create...
+==> yandex: Destroying boot disk...
+    yandex: Disk has been deleted!
+Build 'yandex' finished after 3 minutes 14 seconds.
+
+==> Wait completed after 3 minutes 14 seconds
+
+==> Builds finished. The artifacts of successful builds are:
+--> yandex: A disk image was created: centos-7-base (id: fd82h9g9tqlq7dd4gumk) with family name centos
+vagrant@server1:~/packer$ yc compute image list
++----------------------+---------------+--------+----------------------+--------+
+|          ID          |     NAME      | FAMILY |     PRODUCT IDS      | STATUS |
++----------------------+---------------+--------+----------------------+--------+
+| fd82h9g9tqlq7dd4gumk | centos-7-base | centos | f2eacrudv331nbat9ehb | READY  |
++----------------------+---------------+--------+----------------------+--------+
+```  
+
+
 ## Задача 2
 
 Создать вашу первую виртуальную машину в Яндекс.Облаке.
 
 Для получения зачета, вам необходимо предоставить:
-- Скриншот страницы свойств созданной ВМ, как на примере ниже:
-
+- Скриншот страницы свойств созданной ВМ, как на примере ниже:  
+  
+Решение:
 <p align="center">
-  <img width="1200" height="600" src="./assets/yc_01.png">
+  <img width="1200" height="600" src="./task2-docker-compose-homework.png">
 </p>
 
 ## Задача 3
