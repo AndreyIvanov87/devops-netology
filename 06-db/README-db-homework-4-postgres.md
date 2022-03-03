@@ -110,12 +110,12 @@ ALTER TABLE
 ```
 
 
-Перейдите в управляющую консоль `psql` внутри контейнера.
+Перейдите в управляющую консоль `psql` внутри контейнера.  
 	vagrant@server1:~/postgres-dz-2$ docker exec -it postgres13 bash  
 	root@557b250e3e45:/# psql -h localhost -U postgres -d test_database  
 	psql (13.6 (Debian 13.6-1.pgdg110+1))  
 
-Подключитесь к восстановленной БД и проведите операцию ANALYZE для сбора статистики по таблице.
+Подключитесь к восстановленной БД и проведите операцию ANALYZE для сбора статистики по таблице.  
 	test_database=# ANALYZE orders;  
 	ANALYZE  
 
@@ -139,7 +139,7 @@ test_database=# SELECT attname,avg_width FROM pg_stats WHERE tablename='orders' 
 ```sql
 test_database=# BEGIN;
 BEGIN
-test_database=# ALTER TABLE orders RENAME TO ordersold;
+test_database=*# ALTER TABLE orders RENAME TO ordersold;
 ALTER TABLE
 test_database=*# CREATE TABLE orders ( 
     id integer NOT NULL,
@@ -205,8 +205,8 @@ vagrant@server1:~/postgres-dz-2$ sudo mv  postgres-data/pgdata/test_database.sql
 ```
 
 Как бы вы доработали бэкап-файл, чтобы добавить уникальность значения столбца `title` для таблиц `test_database`?  
-после CREATE TABLE конструкций добавить   
-ALTER TABLE  orders  ADD UNIQUE (title, price);	 
+после `CREATE TABLE` конструкций добавить   
+`ALTER TABLE  orders  ADD UNIQUE (title, price);`	 
 но до заполнения таблиц данными
 
 ---
