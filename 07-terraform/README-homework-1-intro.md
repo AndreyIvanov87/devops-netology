@@ -94,7 +94,7 @@ Setting up terraform (1.1.7) ...
 root@server2:~# terraform --version
 Terraform v1.1.7
 on linux_amd64
-
+```
 
 
 ## Задача 3. Поддержка легаси кода. 
