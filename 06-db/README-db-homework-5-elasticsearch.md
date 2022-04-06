@@ -38,6 +38,7 @@ EXPOSE 9200
 
 USER vagrant
 CMD /home/vagrant/elasticsearch-8.1.1/bin/elasticsearch  -p pid  
+```
 
 - соберите docker-образ и сделайте `push` в ваш docker.io репозиторий
 ```bash
