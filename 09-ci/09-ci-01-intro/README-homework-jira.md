@@ -3,7 +3,7 @@
 ## Подготовка к выполнению
 1. Получить бесплатную [JIRA](https://www.atlassian.com/ru/software/jira/free)
 2. Настроить её для своей "команды разработки"
-3. Создать доски kanban и scrum
+3. Создать доски kanban и scrum  
 https://github.com/AndreyIvanov87/devops-netology/blob/main/09-ci/09-ci-01-intro/jira-workflow-and-issues-type-list.png  
 
 ## Основная часть
