@@ -4,6 +4,7 @@
 1. Получить бесплатную [JIRA](https://www.atlassian.com/ru/software/jira/free)
 2. Настроить её для своей "команды разработки"
 3. Создать доски kanban и scrum
+https://github.com/AndreyIvanov87/devops-netology/blob/main/09-ci/09-ci-01-intro/jira-workflow-and-issues-type-list.png  
 
 ## Основная часть
 В рамках основной части необходимо создать собственные workflow для двух типов задач: bug и остальные типы задач. Задачи типа bug должны проходить следующий жизненный цикл:
@@ -14,6 +15,8 @@
 5. Done fix -> On test
 6. On test <-> On fix, Done
 7. Done <-> Closed, Open
+https://github.com/AndreyIvanov87/devops-netology/blob/main/09-ci/09-ci-01-intro/bug-workflow.png  
+https://github.com/AndreyIvanov87/devops-netology/blob/main/09-ci/09-ci-01-intro/bug%20homework.xml  
 
 Остальные задачи должны проходить по упрощённому workflow:
 1. Open -> On develop
@@ -21,9 +24,18 @@
 3. Done develop -> On test
 4. On test <-> On develop, Done
 5. Done <-> Closed, Open
+https://github.com/AndreyIvanov87/devops-netology/blob/main/09-ci/09-ci-01-intro/default-workflow.png  
+https://github.com/AndreyIvanov87/devops-netology/blob/main/09-ci/09-ci-01-intro/default%20homework.xml  
 
 Создать задачу с типом bug, попытаться провести его по всему workflow до Done. Создать задачу с типом epic, к ней привязать несколько задач с типом task, провести их по всему workflow до Done. При проведении обеих задач по статусам использовать kanban. Вернуть задачи в статус Open.
+
+https://github.com/AndreyIvanov87/devops-netology/blob/main/09-ci/09-ci-01-intro/tasks-created-kanban.png  
+https://github.com/AndreyIvanov87/devops-netology/blob/main/09-ci/09-ci-01-intro/tasks-done-kanban.png  
+
 Перейти в scrum, запланировать новый спринт, состоящий из задач эпика и одного бага, стартовать спринт, провести задачи до состояния Closed. Закрыть спринт.
+https://github.com/AndreyIvanov87/devops-netology/blob/main/09-ci/09-ci-01-intro/sprint-created.png   
+https://github.com/AndreyIvanov87/devops-netology/blob/main/09-ci/09-ci-01-intro/sprint-done.png  
+https://github.com/AndreyIvanov87/devops-netology/blob/main/09-ci/09-ci-01-intro/sprint-closed.png  
 
 Если всё отработало в рамках ожидания - выгрузить схемы workflow для импорта в XML. Файлы с workflow приложить к решению задания.
 
