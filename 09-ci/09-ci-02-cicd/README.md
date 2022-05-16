@@ -45,7 +45,7 @@ vagrant@server3:~/example$ sonar-scanner   -Dsonar.projectKey=netology   -Dsonar
 7. Исправляем ошибки, которые он выявил(включая warnings)
 8. Запускаем анализатор повторно - проверяем, что QG пройдены успешно
 9. Делаем скриншот успешного прохождения анализа, прикладываем к решению ДЗ
-
+https://github.com/AndreyIvanov87/devops-netology/blob/main/09-ci/09-ci-02-cicd/sonarqube-fixed.png
 
 
 ## Знакомство с Nexus
