@@ -121,6 +121,7 @@ Maven home: /home/vagrant/apache-maven-3.8.5
 Java version: 17.0.3, vendor: Private Build, runtime: /usr/lib/jvm/java-17-openjdk-amd64
 Default locale: en_US, platform encoding: UTF-8
 OS name: "linux", version: "5.4.0-80-generic", arch: "amd64", family: "unix"
+```
 
 ### Основная часть
 
