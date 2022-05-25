@@ -58,7 +58,7 @@ check_interval = 0
 5. Скрипт из репозитория размещён в /python_api
 6. Точка вызова: запуск скрипта
 7. Если сборка происходит на ветке `master`: Образ должен пушится в docker registry вашего gitlab `python-api:latest`, иначе этот шаг нужно пропустить
-Конфиг пайплайна:  
+Конфиг пайплайна:   
 ```bash 
 docker-build:
   # Use the official docker image.
