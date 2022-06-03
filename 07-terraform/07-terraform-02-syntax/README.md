@@ -19,6 +19,14 @@ AWS предоставляет достаточно много бесплатн�
     * AmazonRDSFullAccess
     * CloudWatchFullAccess
     * IAMFullAccess
+```bash
+vagrant@server2:~/homework-tf-02/syntax$ yc iam service-account get my-robot
+id: ajekoig73j5ocam7ahr9
+folder_id: b1gq9soqejoerr49t4a4
+created_at: "2022-02-04T15:06:04Z"
+name: my-robot
+description: my-robot
+```
 1. Добавьте переменные окружения 
     ```
     export AWS_ACCESS_KEY_ID=(your access key id)
@@ -116,9 +124,13 @@ variable "yandex_zone_default" {
   default = "ru-central1-a"
 }
 
-#Токен. вообще всю фигню можно взять из yc config list
+#Токен. вообще можно взять из yc config list
+#variable "yandex_token" {
+#  default = "token here not recommended, use cli"
+# example bash: TF_VAR_yandex_token=("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") terraform plan 
+#}
 variable "yandex_token" {
-  default = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+  type = string
 }
 
 # Заменить на ID своего образа
@@ -230,7 +242,7 @@ so that Terraform can guarantee to make the same selections by default when
 you run "terraform init" in the future.
 
 Terraform has been successfully initialized!
-vagrant@server2:~/homework-tf-02/syntax$ terraform plan
+vagrant@server2:~/homework-tf-02/syntax$ TF_VAR_yandex_token=("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") terraform plan
 
 Terraform used the selected providers to generate the following execution plan. Resource actions are
 indicated with the following symbols:

@@ -16,9 +16,13 @@ variable "yandex_zone_default" {
   default = "ru-central1-a"
 }
 
-#Токен. вообще всю фигню можно взять из yc config list
+#Токен. вообще  можно взять из yc config list
+#variable "yandex_token" {
+#  default = "token here not recommended, use cli"
+# example bash: TF_VAR_yandex_token=("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") terraform plan 
+#}
 variable "yandex_token" {
-  default = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+  type = string
 }
 
 # Заменить на ID своего образа
@@ -26,4 +30,5 @@ variable "yandex_token" {
 variable "ubuntu" {
   default = "fd83mo49vdjcugs26k8l"
 }
+
 
