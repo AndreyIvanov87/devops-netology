@@ -10,3 +10,19 @@ output "subnet-1" {
   value = yandex_vpc_subnet.subnet-1.id
 }
 
+data "yandex_iam_user" "admin" {
+  login = "xxxxxxxxxxxxxxxxx@yandex.ru"
+}
+
+output "yandex_iam_user" {
+  value = "${data.yandex_iam_user.admin.user_id}"
+}
+
+data "yandex_iam_service_account" "builder" {
+  name = "my-robot"
+}
+
+output "yandex_iam_service_account" {
+  value = "${data.yandex_iam_service_account.builder.service_account_id}"
+}
+

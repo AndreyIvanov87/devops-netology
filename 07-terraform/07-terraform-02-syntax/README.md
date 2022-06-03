@@ -224,6 +224,23 @@ output "external_ip_address_vm_1" {
 output "subnet-1" {
   value = yandex_vpc_subnet.subnet-1.id
 }
+data "yandex_iam_user" "admin" {
+  login = "xxxxxxxxxxxxxxxx@yandex.ru"
+}
+
+output "yandex_iam_user" {
+  value = "${data.yandex_iam_user.admin.user_id}"
+}
+
+data "yandex_iam_service_account" "builder" {
+  name = "my-robot"
+}
+
+output "yandex_iam_service_account" {
+  value = "${data.yandex_iam_service_account.builder.service_account_id}"
+}
+
+
 ```
 7. Если вы выполнили первый пункт, то добейтесь того, что бы команда `terraform plan` выполнялась без ошибок. 
 ```bash
@@ -357,6 +374,8 @@ Changes to Outputs:
   + external_ip_address_vm_1 = (known after apply)
   + internal_ip_address_vm_1 = (known after apply)
   + subnet-1                 = (known after apply)
+  + yandex_iam_service_account = "ajekoig73j5ocam7ahr9"
+  + yandex_iam_user            = "ajek691274fumpc74cpm"
 
 ────────────────────────────────────────────────────────────────────────────────────────────────────
 
