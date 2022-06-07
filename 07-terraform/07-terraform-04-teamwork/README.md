@@ -12,7 +12,8 @@
 1. Зарегистрируйте этот репозиторий в [https://app.terraform.io/](https://app.terraform.io/).
 1. Выполните plan и apply. 
 
-В качестве результата задания приложите снимок экрана с успешным применением конфигурации.
+В качестве результата задания приложите снимок экрана с успешным применением конфигурации.  
+https://github.com/AndreyIvanov87/devops-netology/blob/main/07-terraform/07-terraform-04-teamwork/app.terraform.io-success.png  
 
 ## Задача 2. Написать серверный конфиг для атлантиса. 
 
