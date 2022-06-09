@@ -35,7 +35,7 @@ ivanov@host2:~$ unzip atlantis_linux_amd64.zip
 ivanov@host2:~$ wget https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_linux_amd64.zip--2022-06-07 13:35:43--  https://releases.hashicorp.com/terraform/0.14.5/terraform_0.14.5_linux_amd64.zip
 ivanov@host2:~$ ./atlantis server --gh-user fake --gh-token fake --repo-config=/home/ivanov/server.yaml --repo-allowlist='github.com/AndreyIvanov87/terraform-cloud' --atlantis-url http://78.24.223.17:4141/
 ```
-go http://192.168.1.153:4141/github-app/setup  
+go http://78.24.223.17:4141/github-app/setup  
 Github app created successfully!  
 https://www.runatlantis.io/docs/access-credentials.html#generating-an-access-token
 
