@@ -15,15 +15,15 @@
 1. Найдите, где перечислены все доступные `resource` и `data_source`, приложите ссылку на эти строки в коде на гитхабе.
 https://github.com/hashicorp/terraform-provider-aws/blob/1644f0171903703fcbc36ae054dc7accce94403f/internal/provider/provider.go#L423  
 https://github.com/hashicorp/terraform-provider-aws/blob/1644f0171903703fcbc36ae054dc7accce94403f/internal/provider/provider.go#L902     
-1. Для создания очереди сообщений SQS используется ресурс `aws_sqs_queue` у которого есть параметр `name`.
- в ResourcesMap ищем  
-"aws_sqs_queue":        sqs.ResourceQueue(),
+1. Для создания очереди сообщений SQS используется ресурс `aws_sqs_queue` у которого есть параметр `name`.  
+ в ResourcesMap ищем   
+"aws_sqs_queue":        sqs.ResourceQueue(),  
 Функцию ResourceQueue() находим в файле internal/service/sqs/queue.go  
-package sqs
+package sqs  
 ...
 https://github.com/hashicorp/terraform-provider-aws/blob/1644f0171903703fcbc36ae054dc7accce94403f/internal/service/sqs/queue.go#L169  
 
-Там же объявлены переменные в начале файла:
+Там же объявлены переменные в начале файла:  
 ```go
 var (
 	queueSchema = map[string]*schema.Schema{
