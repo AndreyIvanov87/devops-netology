@@ -45,7 +45,8 @@
 1. У вас есть доступ к личному кабинету на сайте регистратора.
 2. Вы зарезистрировали домен и можете им управлять (редактировать dns записи в рамках этого домена).
 
-Зарегистрирован домен netology.tech , поддомен gate.netology.tech делегирован на доменные сервера Яндекса для возможности управления А-записями в облаке. Делегирован не весь домен, чтобы сохранить возможность управлять остальными записями в панели регистратора. Это не даст управлять записью без www, но в задании к этому требования не было, поэтому выбрана такая схема. Остальные записи указаны как CNAME на делегированный поддомен.
+Зарегистрирован домен netology.tech , поддомен gate.netology.tech делегирован на доменные сервера Яндекса для возможности управления А-записями в облаке. Делегирован не весь домен, чтобы сохранить возможность управлять остальными записями в панели регистратора. Это не даст управлять записью без www, но в задании к этому требования не было, поэтому выбрана такая схема. Остальные записи указаны как CNAME на делегированный поддомен.  
+https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/r01-domain-control.png
 
 
 
@@ -65,7 +66,16 @@
 1. Создайте сервисный аккаунт, который будет в дальнейшем использоваться Terraform для работы с инфраструктурой с необходимыми и достаточными правами. Не стоит использовать права суперпользователя
 2. Подготовьте [backend](https://www.terraform.io/docs/language/settings/backends/index.html) для Terraform:
    а. Рекомендуемый вариант: [Terraform Cloud](https://app.terraform.io/)  
-   б. Альтернативный вариант: S3 bucket в созданном YC аккаунте.
+   б. Альтернативный вариант: S3 bucket в созданном YC аккаунте.  
+
+Terraform Cloud не доступен без впн, поэтому выбран вариант S3 bucket в YC.  
+Есть несколько способов не светить чувстительные данные в репозитории: key.json , export variable. Для работы выбран способ с вынесением данных в отдельный файл terraform.tfvars вне репозитория. 
+В репозитории есть файл terraform.tfvars-template куда можно подставить свои данные для работы. Команды terraform следует указывать с подключением файла:  
+```bash
+terraform plan -var-file ~/diplom/terraform.tfvars
+
+```
+
 ```bash
 vagrant@server1:~/diplom/devops-diplom/terraform-s3-create$ terraform workspace new stage
 vagrant@server1:~/diplom/devops-diplom/terraform-s3-create$ terraform workspace list
@@ -92,6 +102,8 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
    а. Рекомендуемый вариант: создайте два workspace: *stage* и *prod*. В случае выбора этого варианта все последующие шаги должны учитывать факт существования нескольких workspace.  
    б. Альтернативный вариант: используйте один workspace, назвав его *stage*. Пожалуйста, не используйте workspace, создаваемый Terraform-ом по-умолчанию (*default*).
 
+В одной из лекций отметили возможность создания workspace, но не рекомендовали к широкому применению, так как в таком коде проще запутаться, поэтому в работе выбран альтернативный вариант с одним workspace.  
+
 ```bash
 export AWS_ACCESS_KEY_ID="ХХХХХХХХХХХХХХХХХХХ"
 export AWS_SECRET_ACCESS_KEY="ХХХХХХХХХХХХХХХ"
@@ -112,91 +124,64 @@ Terraform has been successfully initialized!
 
 ```bash
 vagrant@server1:~/diplom/devops-diplom/terraform$ terraform plan -var-file ~/diplom/terraform.tfvars
-yandex_vpc_network.dipnet: Refreshing state... [id=enpnj52gqkmkt5te716s]
-yandex_vpc_route_table.nat: Refreshing state... [id=enplvj4biqc1ktiouuds]
-yandex_vpc_subnet.private-subnet: Refreshing state... [id=e9buvajhqkplkbqe7o74]
-yandex_compute_instance.dbvm[0]: Refreshing state... [id=fhmbbmlv1oaqqgih2a8q]
-yandex_compute_instance.dbvm[1]: Refreshing state... [id=fhms3aa73h3g84b1pn95]
-yandex_compute_instance.gate: Refreshing state... [id=fhmlbl8hnncfhdijkdkr]
-yandex_dns_zone.netology: Refreshing state... [id=dnseaqrtuvfhi63742ts]
-local_file.inventory: Refreshing state... [id=72e4b6c3337b9dbd7be09d8c25e70150c702fee8]
-null_resource.connect: Refreshing state... [id=4843966095381161638]
-null_resource.gate-setup: Refreshing state... [id=345167238212642241]
-yandex_dns_recordset.gate: Refreshing state... [id=dnseaqrtuvfhi63742ts/gate.netology.tech./A]
 
-Note: Objects have changed outside of Terraform
+Terraform used the selected providers to generate the following execution plan. Resource actions are
+indicated with the following symbols:
+  + create
 
-Terraform detected the following changes made outside of Terraform since the last "terraform apply":
+Terraform will perform the following actions:
 
-  # yandex_compute_instance.dbvm[0] has changed
-  ~ resource "yandex_compute_instance" "dbvm" {
-        id                        = "fhmbbmlv1oaqqgih2a8q"
-      + labels                    = {}
-        name                      = "db01"
-        # (9 unchanged attributes hidden)
-
-
-
-
-
-        # (5 unchanged blocks hidden)
+  # local_file.inventory will be created
+  + resource "local_file" "inventory" {
+      + content              = (known after apply)
+      + directory_permission = "0777"
+      + file_permission      = "0777"
+      + filename             = "../ansible/inventory"
+      + id                   = (known after apply)
     }
 
-  # yandex_compute_instance.dbvm[1] has changed
-  ~ resource "yandex_compute_instance" "dbvm" {
-        id                        = "fhms3aa73h3g84b1pn95"
-      + labels                    = {}
-        name                      = "db02"
-        # (9 unchanged attributes hidden)
-
-
-
-
-
-        # (5 unchanged blocks hidden)
+  # null_resource.connect will be created
+  + resource "null_resource" "connect" {
+      + id = (known after apply)
     }
 
-  # yandex_compute_instance.gate has changed
-  ~ resource "yandex_compute_instance" "gate" {
-        id                        = "fhmlbl8hnncfhdijkdkr"
-      + labels                    = {}
-        name                      = "gate"
-        # (9 unchanged attributes hidden)
-
-
-
-
-
-        # (5 unchanged blocks hidden)
+  # null_resource.gate-setup will be created
+  + resource "null_resource" "gate-setup" {
+      + id = (known after apply)
     }
 
-  # yandex_dns_zone.netology has changed
-  ~ resource "yandex_dns_zone" "netology" {
-        id               = "dnseaqrtuvfhi63742ts"
-      + labels           = {}
-        name             = "netology-zone-name"
-        # (5 unchanged attributes hidden)
+  # null_resource.gitlab-runner will be created
+  + resource "null_resource" "gitlab-runner" {
+      + id = (known after apply)
     }
 
-  # yandex_vpc_network.dipnet has changed
-  ~ resource "yandex_vpc_network" "dipnet" {
-        id         = "enpnj52gqkmkt5te716s"
-        name       = "dipnet-name"
-      ~ subnet_ids = [
-          + "e9buvajhqkplkbqe7o74",
-        ]
-        # (3 unchanged attributes hidden)
+  # null_resource.gitlab-setup will be created
+  + resource "null_resource" "gitlab-setup" {
+      + id = (known after apply)
     }
 
+  # null_resource.monitoring-setup will be created
+  + resource "null_resource" "monitoring-setup" {
+      + id = (known after apply)
+    }
 
-Unless you have made equivalent changes to your configuration, or ignored the relevant attributes
-using ignore_changes, the following plan may include actions to undo or respond to these changes.
+  # null_resource.mysql-setup will be created
+  + resource "null_resource" "mysql-setup" {
+      + id = (known after apply)
+    }
 
-────────────────────────────────────────────────────────────────────────────────────────────────────
+  # yandex_compute_instance.appvm will be created
+  + resource "yandex_compute_instance" "appvm" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + hostname                  = (known after apply)
+      + id                        = (known after apply)
+      + metadata                  = {
+............
 
-No changes. Your infrastructure matches the configuration.
 ```
-
+Ну и так далее. Полный вывод работы терраформа и ансибла будет приложен отдельным файлом, ссылка в начале работы.   
 
 Цель:
 
@@ -238,7 +223,7 @@ root@gate:~# cat /etc/nginx/sites-enabled/
 alertmanager.netology.tech.conf  grafana.netology.tech.conf       www.netology.tech.conf
 app.netology.tech.conf           prometheus.netology.tech.conf    
 gitlab.netology.tech.conf        runner.netology.tech.conf        
-root@gate:~# cat /etc/nginx/sites-enabled/www.netology.tech.conf 
+vagrant@gate:~$ cat /etc/nginx/sites-enabled/www.netology.tech.conf 
 # переадресация с HTTP на HTTPS
 #
 server {
@@ -261,12 +246,23 @@ server {
 
 
 	location / {
-		proxy_pass http://192.168.1.203/;
+		proxy_pass http://192.168.2.203:80/;
 		proxy_buffering off;
 		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header Host "www.netology.tech";
+
+
+        	proxy_set_header X-Forwarded-For $remote_addr;
+        	proxy_set_header X-Forwarded-Proto $scheme;
+		# auth_basic           "monitoring Area";
+    		# auth_basic_user_file /etc/nginx/.htpasswd; 
+
 	}
 }
+
 ```
+Для интерфейсов мониторинга часть с авторизацией раскомментирована
+
 ___
 ### Установка кластера MySQL
 
@@ -287,6 +283,77 @@ ___
 3. В кластере автоматически создаётся пользователь `wordpress` с полными правами на базу `wordpress` и паролем `wordpress`.
 
 **Вы должны понимать, что в рамках обучения это допустимые значения, но в боевой среде использование подобных значений не приемлимо! Считается хорошей практикой использовать логины и пароли повышенного уровня сложности. В которых будут содержаться буквы верхнего и нижнего регистров, цифры, а также специальные символы!**
+
+```bash
+vagrant@db02:~$ mysql -ptest-password -uroot
+mysql> show slave status \G
+*************************** 1. row ***************************
+               Slave_IO_State: Waiting for source to send event
+                  Master_Host: 192.168.2.201
+                  Master_User: root
+                  Master_Port: 3306
+                Connect_Retry: 60
+              Master_Log_File: mysql-bin.000001
+          Read_Master_Log_Pos: 1102
+               Relay_Log_File: db02-relay-bin.000002
+                Relay_Log_Pos: 326
+        Relay_Master_Log_File: mysql-bin.000001
+             Slave_IO_Running: Yes
+            Slave_SQL_Running: Yes
+              Replicate_Do_DB: 
+          Replicate_Ignore_DB: 
+           Replicate_Do_Table: 
+       Replicate_Ignore_Table: 
+      Replicate_Wild_Do_Table: 
+  Replicate_Wild_Ignore_Table: 
+                   Last_Errno: 0
+                   Last_Error: 
+                 Skip_Counter: 0
+          Exec_Master_Log_Pos: 1102
+              Relay_Log_Space: 535
+              Until_Condition: None
+               Until_Log_File: 
+                Until_Log_Pos: 0
+           Master_SSL_Allowed: No
+           Master_SSL_CA_File: 
+           Master_SSL_CA_Path: 
+              Master_SSL_Cert: 
+            Master_SSL_Cipher: 
+               Master_SSL_Key: 
+        Seconds_Behind_Master: 0
+Master_SSL_Verify_Server_Cert: No
+                Last_IO_Errno: 0
+                Last_IO_Error: 
+               Last_SQL_Errno: 0
+               Last_SQL_Error: 
+  Replicate_Ignore_Server_Ids: 
+             Master_Server_Id: 1
+                  Master_UUID: f6b8a7df-08f5-11ed-90d8-d00dd0f307b2
+             Master_Info_File: mysql.slave_master_info
+                    SQL_Delay: 0
+          SQL_Remaining_Delay: NULL
+      Slave_SQL_Running_State: Replica has read all relay log; waiting for more updates
+           Master_Retry_Count: 86400
+                  Master_Bind: 
+      Last_IO_Error_Timestamp: 
+     Last_SQL_Error_Timestamp: 
+               Master_SSL_Crl: 
+           Master_SSL_Crlpath: 
+           Retrieved_Gtid_Set: 
+            Executed_Gtid_Set: 
+                Auto_Position: 0
+         Replicate_Rewrite_DB: 
+                 Channel_Name: 
+           Master_TLS_Version: 
+       Master_public_key_path: 
+        Get_master_public_key: 0
+            Network_Namespace: 
+1 row in set, 1 warning (0.01 sec)
+
+mysql> 
+
+```
+
 
 ___
 ### Установка WordPress
@@ -313,6 +380,14 @@ https://www.cloudbooklet.com/install-wordpress-with-nginx-reverse-proxy-to-apach
     - `https://www.you.domain` (WordPress)
 3. На сервере `you.domain` отредактирован upstream для выше указанного URL и он смотрит на виртуальную машину на которой установлен WordPress.
 4. В браузере можно открыть URL `https://www.you.domain` и увидеть главную страницу WordPress.
+
+
+https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/wordpress.png
+
+
+
+
+
 ---
 ### Установка Gitlab CE и Gitlab Runner
 
@@ -334,6 +409,93 @@ https://www.cloudbooklet.com/install-wordpress-with-nginx-reverse-proxy-to-apach
     - `https://gitlab.you.domain` (Gitlab)
 3. На сервере `you.domain` отредактирован upstream для выше указанного URL и он смотрит на виртуальную машину на которой установлен Gitlab.
 3. При любом коммите в репозиторий с WordPress и создании тега (например, v1.0.0) происходит деплой на виртуальную машину.
+
+
+Gitlab установлен, в интерфейсе видно что доступен раннер, а так же создан пустой публичный репозиторий root/wordpress  
+Пароль есть в конце вывода работы ansible.
+https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/gitlab-runner.png  
+
+```bash 
+vagrant@server1:~$ cd ~ && gunzip -d /tmp/wordpress.tar.gz && tar -xf /tmp/wordpress.tar && cp /tmp/wp-config.php ./wordpress && cd wordpress && git init && git add * && git commit -m 'initial' && git branch -M main 
+gzip: /tmp/wordpress.tar already exists; do you wish to overwrite (y or n)? y
+Initialized empty Git repository in /home/vagrant/wordpress/.git/
+[master (root-commit) 1973873] initial
+ Committer: vagrant <vagrant@server1.netology>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 2890 files changed, 1285651 insertions(+)
+ create mode 100644 index.php
+ create mode 100644 license.txt
+ create mode 100644 readme.html
+ create mode 100644 wp-activate.php
+ create mode 100644 wp-admin/about.php
+ create mode 100644 wp-admin/admin-ajax.php
+ create mode 100644 wp-admin/admin-footer.php
+ create mode 100644 wp-admin/admin-functions.php
+ create mode 100644 wp-admin/admin-header.php
+ create mode 100644 wp-admin/admin-post.php
+.....................
+
+
+vagrant@server1:~/wordpress$ git -c http.sslVerify=false push https://root@gitlab.netology.tech/root/wordpress main && cat /home/vagrant/diplom/devops-diplom/ansible/stack/.gitlab-ci.yml
+Username for 'https://gitlab.netology.tech': root
+Password for 'https://root@gitlab.netology.tech': 
+warning: redirecting to https://gitlab.netology.tech/root/wordpress.git/
+Enumerating objects: 3101, done.
+Counting objects: 100% (3101/3101), done.
+Compressing objects: 100% (3034/3034), done.
+Writing objects: 100% (3101/3101), 19.21 MiB | 9.02 MiB/s, done.
+Total 3101 (delta 515), reused 0 (delta 0)
+remote: Resolving deltas: 100% (515/515), done.
+To https://gitlab.netology.tech/root/wordpress
+ * [new branch]      main -> main
+stages:          # List of stages for jobs, and their order of execution
+  - deploy
+
+deploy-job:      # This job runs in the deploy stage.
+  only:
+    - tags
+  stage: deploy  
+  script:
+    - echo "Deploying application..."
+    - git clone http://192.168.2.204/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}.git
+    - rsync --del -a -e "ssh -o StrictHostKeyChecking=no" wordpress vagrant@192.168.2.203:/var/www/
+    - rm -rf wordpress
+    - echo "Application successfully deployed."
+
+```
+
+Вывод скрипта вставляем в редактор .gitlab-ci.yml  
+Вносим изменения в readme.html, коммитим, создаем тег v0.0.1  
+https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/gitlab-runner.png  
+
+Видим изменения на сервере с wordpress
+```bash
+vagrant@app:~$ head /var/www/wordpress/readme.html 
+<!DOCTYPE html>
+<html lang="en">
+
+test change for chech depoy
+
+
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>WordPress &#8250; ReadMe</title>
+vagrant@app:~$ 
+
+```
+
 
 ___
 ### Установка Prometheus, Alert Manager, Node Exporter и Grafana
@@ -364,17 +526,40 @@ ___
 
 *Примечание: дашборды со звёздочкой являются опциональными заданиями повышенной сложности их выполнение желательно, но не обязательно.*
 
+Пароль на prometheus и alertmanager задается в ansible/roles/nginx/templates/.htpasswd (admin:admin)
+
+https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/prometheus.png
+https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/grafana.png
+https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/alertmanager.png
+
+
+
+
 ---
 ## Что необходимо для сдачи задания?
 
 1. Репозиторий со всеми Terraform манифестами и готовность продемонстрировать создание всех ресурсов с нуля.
 2. Репозиторий со всеми Ansible ролями и готовность продемонстрировать установку всех сервисов с нуля.
+Ansible запускается из Terraform, так что оно все в одном репозитории:  
+https://github.com/AndreyIvanov87/devops-diplom  
+
 3. Скриншоты веб-интерфейсов всех сервисов работающих по HTTPS на вашем доменном имени.
   - `https://www.you.domain` (WordPress)
   - `https://gitlab.you.domain` (Gitlab)
   - `https://grafana.you.domain` (Grafana)
   - `https://prometheus.you.domain` (Prometheus)
   - `https://alertmanager.you.domain` (Alert Manager)
+
+https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/wordpress.png  
+https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/gitlab-runner.png  
+https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/prometheus.png  
+https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/grafana.png  
+https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/alertmanager.png  
+
+
+
+
+
 4. Все репозитории рекомендуется хранить на одном из ресурсов ([github.com](https://github.com) или [gitlab.com](https://gitlab.com)).
 
 ---

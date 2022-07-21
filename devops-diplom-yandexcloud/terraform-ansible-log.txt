@@ -1,0 +1,1343 @@
+vagrant@server1:~/diplom/devops-diplom/terraform$ terraform apply --auto-approve -var-file ~/diplom/terraform.tfvars
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are
+indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # local_file.inventory will be created
+  + resource "local_file" "inventory" {
+      + content              = (known after apply)
+      + directory_permission = "0777"
+      + file_permission      = "0777"
+      + filename             = "../ansible/inventory"
+      + id                   = (known after apply)
+    }
+
+  # null_resource.connect will be created
+  + resource "null_resource" "connect" {
+      + id = (known after apply)
+    }
+
+  # null_resource.gate-setup will be created
+  + resource "null_resource" "gate-setup" {
+      + id = (known after apply)
+    }
+
+  # null_resource.gitlab-runner will be created
+  + resource "null_resource" "gitlab-runner" {
+      + id = (known after apply)
+    }
+
+  # null_resource.gitlab-setup will be created
+  + resource "null_resource" "gitlab-setup" {
+      + id = (known after apply)
+    }
+
+  # null_resource.monitoring-setup will be created
+  + resource "null_resource" "monitoring-setup" {
+      + id = (known after apply)
+    }
+
+  # null_resource.mysql-setup will be created
+  + resource "null_resource" "mysql-setup" {
+      + id = (known after apply)
+    }
+
+  # yandex_compute_instance.appvm will be created
+  + resource "yandex_compute_instance" "appvm" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + hostname                  = (known after apply)
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "user-data" = <<-EOT
+                #cloud-config
+                users:
+                  - name: vagrant
+                    groups: sudo
+                    shell: /bin/bash
+                    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                    ssh_authorized_keys:
+                      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5iGH+UF0zlntt6loY7i2+SI5pNepqd0rMreRQMdNCr0ei6e89E5Mg+BK2RYH6SiV4NZ8Xrxtx6qMHIxnj6aRwQNpHkO8Zz0NdjlUQgl/KHAuJC/tqNl8n54ATyHppP2L5Sdvh8unmf+ZsKyOfKr4ZC27VCj3Y0+1960YGPS8rPVvratJapUD9sNyMehcPkA9OWRHAo/Tr7fO47Z21g7uVdqRejv7pJrIwVmhtN6Eh+IBbaCrLghqatIlOspj1yj9zQWPoWhjnj/r5M3g8YNdie1ZNLX8iOKg/9lUExWUAnFJb/KXDoNRn1/AdLWjKySyK3QQcGEAnKeiDqY5LNnLS1hM8pCqKddU18kqKA/XJiiqepdANBt5+EOUI0D1t6PNlteqPYFJTq+Uf1zym6VTZBvWvWIVJXI33zKbc0hdncNBMRbNYN87uG2ASd/TVaz5JODeNtRYu+C6XaWZDd4Scn50gzyuvR+ehEtPQ4kdv20iYapUej8bX47QKx4k2rjc= vagrant@server1
+                
+            EOT
+        }
+      + name                      = "app"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v1"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = (known after apply)
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = (known after apply)
+              + image_id    = "fd82re2tpfl4chaupeuf"
+              + name        = (known after apply)
+              + size        = (known after apply)
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = "192.168.2.203"
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = (known after apply)
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + placement_policy {
+          + host_affinity_rules = (known after apply)
+          + placement_group_id  = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 20
+          + cores         = 4
+          + memory        = 4
+        }
+
+      + scheduling_policy {
+          + preemptible = (known after apply)
+        }
+    }
+
+  # yandex_compute_instance.dbvm[0] will be created
+  + resource "yandex_compute_instance" "dbvm" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + hostname                  = (known after apply)
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "user-data" = <<-EOT
+                #cloud-config
+                users:
+                  - name: vagrant
+                    groups: sudo
+                    shell: /bin/bash
+                    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                    ssh_authorized_keys:
+                      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5iGH+UF0zlntt6loY7i2+SI5pNepqd0rMreRQMdNCr0ei6e89E5Mg+BK2RYH6SiV4NZ8Xrxtx6qMHIxnj6aRwQNpHkO8Zz0NdjlUQgl/KHAuJC/tqNl8n54ATyHppP2L5Sdvh8unmf+ZsKyOfKr4ZC27VCj3Y0+1960YGPS8rPVvratJapUD9sNyMehcPkA9OWRHAo/Tr7fO47Z21g7uVdqRejv7pJrIwVmhtN6Eh+IBbaCrLghqatIlOspj1yj9zQWPoWhjnj/r5M3g8YNdie1ZNLX8iOKg/9lUExWUAnFJb/KXDoNRn1/AdLWjKySyK3QQcGEAnKeiDqY5LNnLS1hM8pCqKddU18kqKA/XJiiqepdANBt5+EOUI0D1t6PNlteqPYFJTq+Uf1zym6VTZBvWvWIVJXI33zKbc0hdncNBMRbNYN87uG2ASd/TVaz5JODeNtRYu+C6XaWZDd4Scn50gzyuvR+ehEtPQ4kdv20iYapUej8bX47QKx4k2rjc= vagrant@server1
+                
+            EOT
+        }
+      + name                      = "db01"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v1"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = (known after apply)
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = (known after apply)
+              + image_id    = "fd82re2tpfl4chaupeuf"
+              + name        = (known after apply)
+              + size        = (known after apply)
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = "192.168.2.201"
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = (known after apply)
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + placement_policy {
+          + host_affinity_rules = (known after apply)
+          + placement_group_id  = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 20
+          + cores         = 2
+          + memory        = 2
+        }
+
+      + scheduling_policy {
+          + preemptible = (known after apply)
+        }
+    }
+
+  # yandex_compute_instance.dbvm[1] will be created
+  + resource "yandex_compute_instance" "dbvm" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + hostname                  = (known after apply)
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "user-data" = <<-EOT
+                #cloud-config
+                users:
+                  - name: vagrant
+                    groups: sudo
+                    shell: /bin/bash
+                    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                    ssh_authorized_keys:
+                      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5iGH+UF0zlntt6loY7i2+SI5pNepqd0rMreRQMdNCr0ei6e89E5Mg+BK2RYH6SiV4NZ8Xrxtx6qMHIxnj6aRwQNpHkO8Zz0NdjlUQgl/KHAuJC/tqNl8n54ATyHppP2L5Sdvh8unmf+ZsKyOfKr4ZC27VCj3Y0+1960YGPS8rPVvratJapUD9sNyMehcPkA9OWRHAo/Tr7fO47Z21g7uVdqRejv7pJrIwVmhtN6Eh+IBbaCrLghqatIlOspj1yj9zQWPoWhjnj/r5M3g8YNdie1ZNLX8iOKg/9lUExWUAnFJb/KXDoNRn1/AdLWjKySyK3QQcGEAnKeiDqY5LNnLS1hM8pCqKddU18kqKA/XJiiqepdANBt5+EOUI0D1t6PNlteqPYFJTq+Uf1zym6VTZBvWvWIVJXI33zKbc0hdncNBMRbNYN87uG2ASd/TVaz5JODeNtRYu+C6XaWZDd4Scn50gzyuvR+ehEtPQ4kdv20iYapUej8bX47QKx4k2rjc= vagrant@server1
+                
+            EOT
+        }
+      + name                      = "db02"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v1"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = (known after apply)
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = (known after apply)
+              + image_id    = "fd82re2tpfl4chaupeuf"
+              + name        = (known after apply)
+              + size        = (known after apply)
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = "192.168.2.202"
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = (known after apply)
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + placement_policy {
+          + host_affinity_rules = (known after apply)
+          + placement_group_id  = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 20
+          + cores         = 2
+          + memory        = 2
+        }
+
+      + scheduling_policy {
+          + preemptible = (known after apply)
+        }
+    }
+
+  # yandex_compute_instance.gate will be created
+  + resource "yandex_compute_instance" "gate" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + hostname                  = (known after apply)
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "ssh-keys"  = <<-EOT
+                vagrant:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5iGH+UF0zlntt6loY7i2+SI5pNepqd0rMreRQMdNCr0ei6e89E5Mg+BK2RYH6SiV4NZ8Xrxtx6qMHIxnj6aRwQNpHkO8Zz0NdjlUQgl/KHAuJC/tqNl8n54ATyHppP2L5Sdvh8unmf+ZsKyOfKr4ZC27VCj3Y0+1960YGPS8rPVvratJapUD9sNyMehcPkA9OWRHAo/Tr7fO47Z21g7uVdqRejv7pJrIwVmhtN6Eh+IBbaCrLghqatIlOspj1yj9zQWPoWhjnj/r5M3g8YNdie1ZNLX8iOKg/9lUExWUAnFJb/KXDoNRn1/AdLWjKySyK3QQcGEAnKeiDqY5LNnLS1hM8pCqKddU18kqKA/XJiiqepdANBt5+EOUI0D1t6PNlteqPYFJTq+Uf1zym6VTZBvWvWIVJXI33zKbc0hdncNBMRbNYN87uG2ASd/TVaz5JODeNtRYu+C6XaWZDd4Scn50gzyuvR+ehEtPQ4kdv20iYapUej8bX47QKx4k2rjc= vagrant@server1
+            EOT
+          + "user-data" = <<-EOT
+                #cloud-config
+                users:
+                  - name: vagrant
+                    groups: sudo
+                    shell: /bin/bash
+                    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                    ssh_authorized_keys:
+                      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5iGH+UF0zlntt6loY7i2+SI5pNepqd0rMreRQMdNCr0ei6e89E5Mg+BK2RYH6SiV4NZ8Xrxtx6qMHIxnj6aRwQNpHkO8Zz0NdjlUQgl/KHAuJC/tqNl8n54ATyHppP2L5Sdvh8unmf+ZsKyOfKr4ZC27VCj3Y0+1960YGPS8rPVvratJapUD9sNyMehcPkA9OWRHAo/Tr7fO47Z21g7uVdqRejv7pJrIwVmhtN6Eh+IBbaCrLghqatIlOspj1yj9zQWPoWhjnj/r5M3g8YNdie1ZNLX8iOKg/9lUExWUAnFJb/KXDoNRn1/AdLWjKySyK3QQcGEAnKeiDqY5LNnLS1hM8pCqKddU18kqKA/XJiiqepdANBt5+EOUI0D1t6PNlteqPYFJTq+Uf1zym6VTZBvWvWIVJXI33zKbc0hdncNBMRbNYN87uG2ASd/TVaz5JODeNtRYu+C6XaWZDd4Scn50gzyuvR+ehEtPQ4kdv20iYapUej8bX47QKx4k2rjc= vagrant@server1
+                
+            EOT
+        }
+      + name                      = "gate"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v1"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = (known after apply)
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = (known after apply)
+              + image_id    = "fd84mnpg35f7s7b0f5lg"
+              + name        = (known after apply)
+              + size        = 10
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = "192.168.2.200"
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = true
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + placement_policy {
+          + host_affinity_rules = (known after apply)
+          + placement_group_id  = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 20
+          + cores         = 2
+          + memory        = 2
+        }
+
+      + scheduling_policy {
+          + preemptible = (known after apply)
+        }
+    }
+
+  # yandex_compute_instance.gitlabvm will be created
+  + resource "yandex_compute_instance" "gitlabvm" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + hostname                  = (known after apply)
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "user-data" = <<-EOT
+                #cloud-config
+                users:
+                  - name: vagrant
+                    groups: sudo
+                    shell: /bin/bash
+                    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                    ssh_authorized_keys:
+                      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5iGH+UF0zlntt6loY7i2+SI5pNepqd0rMreRQMdNCr0ei6e89E5Mg+BK2RYH6SiV4NZ8Xrxtx6qMHIxnj6aRwQNpHkO8Zz0NdjlUQgl/KHAuJC/tqNl8n54ATyHppP2L5Sdvh8unmf+ZsKyOfKr4ZC27VCj3Y0+1960YGPS8rPVvratJapUD9sNyMehcPkA9OWRHAo/Tr7fO47Z21g7uVdqRejv7pJrIwVmhtN6Eh+IBbaCrLghqatIlOspj1yj9zQWPoWhjnj/r5M3g8YNdie1ZNLX8iOKg/9lUExWUAnFJb/KXDoNRn1/AdLWjKySyK3QQcGEAnKeiDqY5LNnLS1hM8pCqKddU18kqKA/XJiiqepdANBt5+EOUI0D1t6PNlteqPYFJTq+Uf1zym6VTZBvWvWIVJXI33zKbc0hdncNBMRbNYN87uG2ASd/TVaz5JODeNtRYu+C6XaWZDd4Scn50gzyuvR+ehEtPQ4kdv20iYapUej8bX47QKx4k2rjc= vagrant@server1
+                
+            EOT
+        }
+      + name                      = "gitlab"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v1"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = (known after apply)
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = (known after apply)
+              + image_id    = "fd8gmpfrnphth71tmuh0"
+              + name        = (known after apply)
+              + size        = 20
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = "192.168.2.204"
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = (known after apply)
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + placement_policy {
+          + host_affinity_rules = (known after apply)
+          + placement_group_id  = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 100
+          + cores         = 4
+          + memory        = 4
+        }
+
+      + scheduling_policy {
+          + preemptible = (known after apply)
+        }
+    }
+
+  # yandex_compute_instance.monitoringvm will be created
+  + resource "yandex_compute_instance" "monitoringvm" {
+      + allow_stopping_for_update = true
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + hostname                  = (known after apply)
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "user-data" = <<-EOT
+                #cloud-config
+                users:
+                  - name: vagrant
+                    groups: sudo
+                    shell: /bin/bash
+                    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                    ssh_authorized_keys:
+                      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5iGH+UF0zlntt6loY7i2+SI5pNepqd0rMreRQMdNCr0ei6e89E5Mg+BK2RYH6SiV4NZ8Xrxtx6qMHIxnj6aRwQNpHkO8Zz0NdjlUQgl/KHAuJC/tqNl8n54ATyHppP2L5Sdvh8unmf+ZsKyOfKr4ZC27VCj3Y0+1960YGPS8rPVvratJapUD9sNyMehcPkA9OWRHAo/Tr7fO47Z21g7uVdqRejv7pJrIwVmhtN6Eh+IBbaCrLghqatIlOspj1yj9zQWPoWhjnj/r5M3g8YNdie1ZNLX8iOKg/9lUExWUAnFJb/KXDoNRn1/AdLWjKySyK3QQcGEAnKeiDqY5LNnLS1hM8pCqKddU18kqKA/XJiiqepdANBt5+EOUI0D1t6PNlteqPYFJTq+Uf1zym6VTZBvWvWIVJXI33zKbc0hdncNBMRbNYN87uG2ASd/TVaz5JODeNtRYu+C6XaWZDd4Scn50gzyuvR+ehEtPQ4kdv20iYapUej8bX47QKx4k2rjc= vagrant@server1
+                
+            EOT
+        }
+      + name                      = "monitoring"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v1"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = (known after apply)
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = (known after apply)
+              + image_id    = "fd82re2tpfl4chaupeuf"
+              + name        = (known after apply)
+              + size        = 50
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = "192.168.2.206"
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = (known after apply)
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + placement_policy {
+          + host_affinity_rules = (known after apply)
+          + placement_group_id  = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 100
+          + cores         = 4
+          + memory        = 4
+        }
+
+      + scheduling_policy {
+          + preemptible = (known after apply)
+        }
+    }
+
+  # yandex_compute_instance.runnervm will be created
+  + resource "yandex_compute_instance" "runnervm" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + hostname                  = (known after apply)
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "user-data" = <<-EOT
+                #cloud-config
+                users:
+                  - name: vagrant
+                    groups: sudo
+                    shell: /bin/bash
+                    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                    ssh_authorized_keys:
+                      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5iGH+UF0zlntt6loY7i2+SI5pNepqd0rMreRQMdNCr0ei6e89E5Mg+BK2RYH6SiV4NZ8Xrxtx6qMHIxnj6aRwQNpHkO8Zz0NdjlUQgl/KHAuJC/tqNl8n54ATyHppP2L5Sdvh8unmf+ZsKyOfKr4ZC27VCj3Y0+1960YGPS8rPVvratJapUD9sNyMehcPkA9OWRHAo/Tr7fO47Z21g7uVdqRejv7pJrIwVmhtN6Eh+IBbaCrLghqatIlOspj1yj9zQWPoWhjnj/r5M3g8YNdie1ZNLX8iOKg/9lUExWUAnFJb/KXDoNRn1/AdLWjKySyK3QQcGEAnKeiDqY5LNnLS1hM8pCqKddU18kqKA/XJiiqepdANBt5+EOUI0D1t6PNlteqPYFJTq+Uf1zym6VTZBvWvWIVJXI33zKbc0hdncNBMRbNYN87uG2ASd/TVaz5JODeNtRYu+C6XaWZDd4Scn50gzyuvR+ehEtPQ4kdv20iYapUej8bX47QKx4k2rjc= vagrant@server1
+                
+            EOT
+        }
+      + name                      = "runner"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v1"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = (known after apply)
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = (known after apply)
+              + image_id    = "fd82re2tpfl4chaupeuf"
+              + name        = (known after apply)
+              + size        = 20
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = "192.168.2.205"
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = (known after apply)
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + placement_policy {
+          + host_affinity_rules = (known after apply)
+          + placement_group_id  = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 100
+          + cores         = 4
+          + memory        = 4
+        }
+
+      + scheduling_policy {
+          + preemptible = (known after apply)
+        }
+    }
+
+  # yandex_dns_recordset.gate will be created
+  + resource "yandex_dns_recordset" "gate" {
+      + data    = (known after apply)
+      + id      = (known after apply)
+      + name    = "gate.netology.tech."
+      + ttl     = 200
+      + type    = "A"
+      + zone_id = (known after apply)
+    }
+
+  # yandex_dns_zone.netology will be created
+  + resource "yandex_dns_zone" "netology" {
+      + created_at       = (known after apply)
+      + folder_id        = (known after apply)
+      + id               = (known after apply)
+      + name             = "netology-zone-name"
+      + private_networks = (known after apply)
+      + public           = true
+      + zone             = "gate.netology.tech."
+    }
+
+  # yandex_vpc_network.dipnet will be created
+  + resource "yandex_vpc_network" "dipnet" {
+      + created_at                = (known after apply)
+      + default_security_group_id = (known after apply)
+      + folder_id                 = (known after apply)
+      + id                        = (known after apply)
+      + labels                    = (known after apply)
+      + name                      = "dipnet-name"
+      + subnet_ids                = (known after apply)
+    }
+
+  # yandex_vpc_route_table.nat will be created
+  + resource "yandex_vpc_route_table" "nat" {
+      + created_at = (known after apply)
+      + folder_id  = (known after apply)
+      + id         = (known after apply)
+      + labels     = (known after apply)
+      + network_id = (known after apply)
+
+      + static_route {
+          + destination_prefix = "0.0.0.0/0"
+          + next_hop_address   = "192.168.2.200"
+        }
+    }
+
+  # yandex_vpc_subnet.private-subnet will be created
+  + resource "yandex_vpc_subnet" "private-subnet" {
+      + created_at     = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + labels         = (known after apply)
+      + name           = "private-subnet-name"
+      + network_id     = (known after apply)
+      + route_table_id = (known after apply)
+      + v4_cidr_blocks = [
+          + "192.168.2.0/24",
+        ]
+      + v6_cidr_blocks = (known after apply)
+      + zone           = "ru-central1-a"
+    }
+
+  # yandex_vpc_subnet.private-subnet-b will be created
+  + resource "yandex_vpc_subnet" "private-subnet-b" {
+      + created_at     = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + labels         = (known after apply)
+      + name           = "private-subnet-name-b"
+      + network_id     = (known after apply)
+      + route_table_id = (known after apply)
+      + v4_cidr_blocks = [
+          + "192.168.3.0/24",
+        ]
+      + v6_cidr_blocks = (known after apply)
+      + zone           = "ru-central1-b"
+    }
+
+Plan: 20 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + external_ip_address_appvm       = (known after apply)
+  + external_ip_address_dbvm1       = (known after apply)
+  + external_ip_address_dbvm2       = (known after apply)
+  + external_ip_address_gate        = (known after apply)
+  + external_ip_address_gitlabvm    = (known after apply)
+  + external_ip_address_monitorinvm = (known after apply)
+  + external_ip_address_runnervm    = (known after apply)
+  + internal_ip_address_appvm       = "192.168.2.203"
+  + internal_ip_address_dbvm1       = "192.168.2.201"
+  + internal_ip_address_dbvm2       = "192.168.2.202"
+  + internal_ip_address_gate        = "192.168.2.200"
+  + internal_ip_address_gitlabvm    = "192.168.2.204"
+  + internal_ip_address_monitorinvm = "192.168.2.206"
+  + internal_ip_address_runnervm    = "192.168.2.205"
+  + private-subnet                  = (known after apply)
+yandex_vpc_network.dipnet: Creating...
+yandex_vpc_network.dipnet: Creation complete after 1s [id=enpdvv9l2f2sf82hq5tf]
+yandex_vpc_route_table.nat: Creating...
+yandex_vpc_route_table.nat: Creation complete after 1s [id=enpbr6kgnj7i9abfmrp2]
+yandex_vpc_subnet.private-subnet: Creating...
+yandex_vpc_subnet.private-subnet-b: Creating...
+yandex_vpc_subnet.private-subnet-b: Creation complete after 1s [id=e2lvufdmgqmu9d8it11q]
+yandex_vpc_subnet.private-subnet: Creation complete after 3s [id=e9bnmp8ufoq586nm78a1]
+yandex_compute_instance.appvm: Creating...
+yandex_compute_instance.dbvm[1]: Creating...
+yandex_compute_instance.gate: Creating...
+yandex_compute_instance.runnervm: Creating...
+yandex_compute_instance.dbvm[0]: Creating...
+yandex_compute_instance.gitlabvm: Creating...
+yandex_compute_instance.monitoringvm: Creating...
+yandex_compute_instance.appvm: Still creating... [10s elapsed]
+yandex_compute_instance.gate: Still creating... [10s elapsed]
+yandex_compute_instance.dbvm[1]: Still creating... [10s elapsed]
+yandex_compute_instance.runnervm: Still creating... [10s elapsed]
+yandex_compute_instance.dbvm[0]: Still creating... [10s elapsed]
+yandex_compute_instance.gitlabvm: Still creating... [10s elapsed]
+yandex_compute_instance.monitoringvm: Still creating... [10s elapsed]
+yandex_compute_instance.appvm: Still creating... [20s elapsed]
+yandex_compute_instance.gate: Still creating... [20s elapsed]
+yandex_compute_instance.dbvm[1]: Still creating... [20s elapsed]
+yandex_compute_instance.runnervm: Still creating... [20s elapsed]
+yandex_compute_instance.dbvm[0]: Still creating... [20s elapsed]
+yandex_compute_instance.gitlabvm: Still creating... [20s elapsed]
+yandex_compute_instance.monitoringvm: Still creating... [20s elapsed]
+yandex_compute_instance.monitoringvm: Creation complete after 25s [id=fhmop0f17d2850us8uh1]
+yandex_compute_instance.dbvm[1]: Creation complete after 26s [id=fhm8ne4fk9jla8mmkg0i]
+yandex_compute_instance.appvm: Still creating... [30s elapsed]
+yandex_compute_instance.gate: Still creating... [30s elapsed]
+yandex_compute_instance.runnervm: Still creating... [30s elapsed]
+yandex_compute_instance.dbvm[0]: Still creating... [30s elapsed]
+yandex_compute_instance.gitlabvm: Still creating... [30s elapsed]
+yandex_compute_instance.dbvm[0]: Creation complete after 33s [id=fhmd1so7mb4jmp3pf1mt]
+yandex_compute_instance.appvm: Creation complete after 34s [id=fhmvd991q6g90nba9v7i]
+yandex_compute_instance.runnervm: Creation complete after 34s [id=fhmefmnggppk2larrm4r]
+yandex_compute_instance.gitlabvm: Creation complete after 34s [id=fhm90r795o8m2026pha0]
+yandex_compute_instance.gate: Creation complete after 34s [id=fhmgsijhitpmhjj8gg0a]
+yandex_dns_zone.netology: Creating...
+local_file.inventory: Creating...
+local_file.inventory: Creation complete after 0s [id=e37ea17cc826477e4e2c137ee1b469c8f628455f]
+null_resource.connect: Creating...
+null_resource.connect: Provisioning with 'local-exec'...
+null_resource.connect (local-exec): Executing: ["/bin/sh" "-c" "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/connect.yml"]
+
+null_resource.connect (local-exec): PLAY [wait for hosts to up] ****************************************************
+
+null_resource.connect (local-exec): TASK [Wait 300 seconds, but only start checking after 60 seconds] **************
+yandex_dns_zone.netology: Creation complete after 1s [id=dnsbhv9s73nmm3lvb62e]
+yandex_dns_recordset.gate: Creating...
+yandex_dns_recordset.gate: Creation complete after 1s [id=dnsbhv9s73nmm3lvb62e/gate.netology.tech./A]
+null_resource.connect: Still creating... [10s elapsed]
+null_resource.connect: Still creating... [20s elapsed]
+null_resource.connect: Still creating... [30s elapsed]
+null_resource.connect: Still creating... [40s elapsed]
+null_resource.connect: Still creating... [50s elapsed]
+null_resource.connect: Still creating... [1m0s elapsed]
+null_resource.connect (local-exec): ok: [gate.netology.tech]
+null_resource.connect (local-exec): ok: [gitlab.netology.tech]
+null_resource.connect (local-exec): ok: [db02.netology.tech]
+null_resource.connect (local-exec): ok: [app.netology.tech]
+null_resource.connect (local-exec): ok: [db01.netology.tech]
+null_resource.connect: Still creating... [1m10s elapsed]
+null_resource.connect: Still creating... [1m20s elapsed]
+null_resource.connect: Still creating... [1m30s elapsed]
+null_resource.connect: Still creating... [1m40s elapsed]
+null_resource.connect: Still creating... [1m50s elapsed]
+null_resource.connect: Still creating... [2m0s elapsed]
+null_resource.connect (local-exec): ok: [monitoring.netology.tech]
+null_resource.connect (local-exec): ok: [runner.netology.tech]
+
+null_resource.connect (local-exec): PLAY [Chech connection] ********************************************************
+
+null_resource.connect (local-exec): TASK [Gathering Facts] *********************************************************
+null_resource.connect (local-exec): ok: [gate.netology.tech]
+null_resource.connect (local-exec): ok: [gitlab.netology.tech]
+null_resource.connect (local-exec): ok: [db02.netology.tech]
+null_resource.connect (local-exec): ok: [app.netology.tech]
+null_resource.connect (local-exec): ok: [db01.netology.tech]
+null_resource.connect (local-exec): ok: [monitoring.netology.tech]
+null_resource.connect (local-exec): ok: [runner.netology.tech]
+
+null_resource.connect (local-exec): TASK [Print OS] ****************************************************************
+null_resource.connect (local-exec): ok: [gate.netology.tech] => {
+null_resource.connect (local-exec):     "msg": "Ubuntu"
+null_resource.connect (local-exec): }
+null_resource.connect (local-exec): ok: [db01.netology.tech] => {
+null_resource.connect (local-exec):     "msg": "Ubuntu"
+null_resource.connect (local-exec): }
+null_resource.connect (local-exec): ok: [db02.netology.tech] => {
+null_resource.connect (local-exec):     "msg": "Ubuntu"
+null_resource.connect (local-exec): }
+null_resource.connect (local-exec): ok: [app.netology.tech] => {
+null_resource.connect (local-exec):     "msg": "Ubuntu"
+null_resource.connect (local-exec): }
+null_resource.connect (local-exec): ok: [gitlab.netology.tech] => {
+null_resource.connect (local-exec):     "msg": "Ubuntu"
+null_resource.connect (local-exec): }
+null_resource.connect (local-exec): ok: [runner.netology.tech] => {
+null_resource.connect (local-exec):     "msg": "Ubuntu"
+null_resource.connect (local-exec): }
+null_resource.connect (local-exec): ok: [monitoring.netology.tech] => {
+null_resource.connect (local-exec):     "msg": "Ubuntu"
+null_resource.connect (local-exec): }
+
+null_resource.connect (local-exec): TASK [Set hostnames] ***********************************************************
+null_resource.connect: Still creating... [2m10s elapsed]
+null_resource.connect (local-exec): changed: [gate.netology.tech]
+null_resource.connect (local-exec): changed: [db02.netology.tech]
+null_resource.connect (local-exec): changed: [gitlab.netology.tech]
+null_resource.connect (local-exec): changed: [db01.netology.tech]
+null_resource.connect (local-exec): changed: [app.netology.tech]
+null_resource.connect (local-exec): changed: [runner.netology.tech]
+null_resource.connect (local-exec): changed: [monitoring.netology.tech]
+
+null_resource.connect (local-exec): PLAY RECAP *********************************************************************
+null_resource.connect (local-exec): app.netology.tech          : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+null_resource.connect (local-exec): db01.netology.tech         : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+null_resource.connect (local-exec): db02.netology.tech         : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+null_resource.connect (local-exec): gate.netology.tech         : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+null_resource.connect (local-exec): gitlab.netology.tech       : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+null_resource.connect (local-exec): monitoring.netology.tech   : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+null_resource.connect (local-exec): runner.netology.tech       : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+null_resource.connect: Creation complete after 2m13s [id=2236964356016170070]
+null_resource.gate-setup: Creating...
+null_resource.gate-setup: Provisioning with 'local-exec'...
+null_resource.gate-setup (local-exec): Executing: ["/bin/sh" "-c" "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/site.yml"]
+
+null_resource.gate-setup (local-exec): PLAY [install nginx] ***********************************************************
+
+null_resource.gate-setup (local-exec): TASK [Gathering Facts] *********************************************************
+null_resource.gate-setup (local-exec): ok: [gate.netology.tech]
+
+null_resource.gate-setup (local-exec): TASK [nginx : Update apt cache] ************************************************
+null_resource.gate-setup: Still creating... [10s elapsed]
+null_resource.gate-setup (local-exec): changed: [gate.netology.tech]
+
+null_resource.gate-setup (local-exec): TASK [nginx : Install Nginx] ***************************************************
+null_resource.gate-setup: Still creating... [20s elapsed]
+null_resource.gate-setup (local-exec): changed: [gate.netology.tech]
+
+null_resource.gate-setup (local-exec): TASK [nginx : install certbot for letsencrypt] *********************************
+null_resource.gate-setup: Still creating... [30s elapsed]
+null_resource.gate-setup: Still creating... [40s elapsed]
+null_resource.gate-setup (local-exec): changed: [gate.netology.tech]
+
+null_resource.gate-setup (local-exec): TASK [nginx : Replace original nginx.conf with temtlate] ***********************
+null_resource.gate-setup (local-exec): changed: [gate.netology.tech]
+
+null_resource.gate-setup (local-exec): TASK [nginx : copy .htpasswd for protected monitoring services] ****************
+null_resource.gate-setup (local-exec): changed: [gate.netology.tech]
+
+null_resource.gate-setup (local-exec): TASK [nginx : create vhost files from template] ********************************
+null_resource.gate-setup: Still creating... [50s elapsed]
+null_resource.gate-setup (local-exec): changed: [gate.netology.tech] => (item={'fqdn': 'www.netology.tech', 'host': '192.168.2.203', 'port': '80', 'auth': '#'})
+null_resource.gate-setup (local-exec): changed: [gate.netology.tech] => (item={'fqdn': 'app.netology.tech', 'host': '192.168.2.203', 'port': '80', 'auth': '#'})
+null_resource.gate-setup (local-exec): changed: [gate.netology.tech] => (item={'fqdn': 'gitlab.netology.tech', 'host': '192.168.2.204', 'port': '80', 'auth': '#'})
+null_resource.gate-setup (local-exec): changed: [gate.netology.tech] => (item={'fqdn': 'runner.netology.tech', 'host': '192.168.2.204', 'port': '80', 'auth': '#'})
+null_resource.gate-setup (local-exec): changed: [gate.netology.tech] => (item={'fqdn': 'grafana.netology.tech', 'host': '192.168.2.206', 'port': '3000', 'auth': '#'})
+null_resource.gate-setup (local-exec): changed: [gate.netology.tech] => (item={'fqdn': 'prometheus.netology.tech', 'host': '192.168.2.206', 'port': '9090', 'auth': ' '})
+null_resource.gate-setup (local-exec): changed: [gate.netology.tech] => (item={'fqdn': 'alertmanager.netology.tech', 'host': '192.168.2.206', 'port': '9093', 'auth': ' '})
+
+null_resource.gate-setup (local-exec): TASK [nginx : Remove default host] *********************************************
+null_resource.gate-setup: Still creating... [1m0s elapsed]
+null_resource.gate-setup (local-exec): changed: [gate.netology.tech]
+
+null_resource.gate-setup (local-exec): TASK [nginx : Check that the ssl-sertificate exists] ***************************
+null_resource.gate-setup (local-exec): ok: [gate.netology.tech]
+
+null_resource.gate-setup (local-exec): TASK [nginx : stop nginx for create certs] *************************************
+null_resource.gate-setup (local-exec): changed: [gate.netology.tech]
+
+null_resource.gate-setup (local-exec): TASK [nginx : Create certificates, if not exist. use --test-cert for test] *****
+null_resource.gate-setup: Still creating... [1m10s elapsed]
+null_resource.gate-setup (local-exec): changed: [gate.netology.tech]
+
+null_resource.gate-setup (local-exec): TASK [nginx : copy ssh key for jump host] **************************************
+null_resource.gate-setup (local-exec): changed: [gate.netology.tech]
+
+null_resource.gate-setup (local-exec): RUNNING HANDLER [nginx : nginx systemd] ****************************************
+null_resource.gate-setup (local-exec): changed: [gate.netology.tech]
+
+null_resource.gate-setup (local-exec): PLAY [install app server with wordpress] ***************************************
+
+null_resource.gate-setup (local-exec): TASK [Gathering Facts] *********************************************************
+null_resource.gate-setup: Still creating... [1m20s elapsed]
+null_resource.gate-setup (local-exec): ok: [app.netology.tech]
+
+null_resource.gate-setup (local-exec): TASK [server : Update apt cache] ***********************************************
+null_resource.gate-setup: Still creating... [1m30s elapsed]
+null_resource.gate-setup (local-exec): changed: [app.netology.tech]
+
+null_resource.gate-setup (local-exec): TASK [server : Install software for LAMP] **************************************
+null_resource.gate-setup: Still creating... [1m40s elapsed]
+null_resource.gate-setup: Still creating... [1m50s elapsed]
+null_resource.gate-setup: Still creating... [2m0s elapsed]
+null_resource.gate-setup: Still creating... [2m10s elapsed]
+null_resource.gate-setup: Still creating... [2m20s elapsed]
+null_resource.gate-setup: Still creating... [2m30s elapsed]
+null_resource.gate-setup: Still creating... [2m40s elapsed]
+null_resource.gate-setup: Still creating... [2m50s elapsed]
+null_resource.gate-setup: Still creating... [3m0s elapsed]
+null_resource.gate-setup (local-exec): changed: [app.netology.tech]
+
+null_resource.gate-setup (local-exec): TASK [wordpress : Download WordPress] ******************************************
+null_resource.gate-setup: Still creating... [3m10s elapsed]
+null_resource.gate-setup (local-exec): changed: [app.netology.tech]
+
+null_resource.gate-setup (local-exec): TASK [wordpress : copy current archive for gitlab] *****************************
+null_resource.gate-setup (local-exec): changed: [app.netology.tech]
+
+null_resource.gate-setup (local-exec): TASK [wordpress : Extract WordPress] *******************************************
+null_resource.gate-setup: Still creating... [3m20s elapsed]
+null_resource.gate-setup (local-exec): changed: [app.netology.tech]
+
+null_resource.gate-setup (local-exec): TASK [wordpress : update default ports.conf for apache to listen ipv4] *********
+null_resource.gate-setup (local-exec): changed: [app.netology.tech]
+
+null_resource.gate-setup (local-exec): TASK [wordpress : Update default Apache site] **********************************
+null_resource.gate-setup (local-exec): changed: [app.netology.tech]
+
+null_resource.gate-setup (local-exec): TASK [wordpress : place wp config file from template] **************************
+null_resource.gate-setup: Still creating... [3m30s elapsed]
+null_resource.gate-setup (local-exec): changed: [app.netology.tech]
+
+null_resource.gate-setup (local-exec): TASK [wordpress : Recursively change ownership of a wordpress directory] *******
+null_resource.gate-setup (local-exec): changed: [app.netology.tech]
+
+null_resource.gate-setup (local-exec): TASK [wordpress : copy current wp-config for gitlab] ***************************
+null_resource.gate-setup (local-exec): ok: [app.netology.tech]
+
+null_resource.gate-setup (local-exec): RUNNING HANDLER [wordpress : restart apache] ***********************************
+null_resource.gate-setup (local-exec): changed: [app.netology.tech]
+
+null_resource.gate-setup (local-exec): PLAY RECAP *********************************************************************
+null_resource.gate-setup (local-exec): app.netology.tech          : ok=12   changed=10   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+null_resource.gate-setup (local-exec): gate.netology.tech         : ok=13   changed=11   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+null_resource.gate-setup: Creation complete after 3m34s [id=110673386696940880]
+null_resource.mysql-setup: Creating...
+null_resource.mysql-setup: Provisioning with 'local-exec'...
+null_resource.mysql-setup (local-exec): Executing: ["/bin/sh" "-c" "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/mysql.yml"]
+
+null_resource.mysql-setup (local-exec): PLAY [install mysql] ***********************************************************
+
+null_resource.mysql-setup (local-exec): TASK [Gathering Facts] *********************************************************
+null_resource.mysql-setup (local-exec): ok: [db02.netology.tech]
+null_resource.mysql-setup (local-exec): ok: [db01.netology.tech]
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : install python] ******************************************
+null_resource.mysql-setup: Still creating... [10s elapsed]
+null_resource.mysql-setup (local-exec): ok: [db02.netology.tech]
+null_resource.mysql-setup: Still creating... [20s elapsed]
+null_resource.mysql-setup (local-exec): ok: [db01.netology.tech]
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : Install mysql Server] ************************************
+null_resource.mysql-setup: Still creating... [30s elapsed]
+null_resource.mysql-setup: Still creating... [40s elapsed]
+null_resource.mysql-setup: Still creating... [50s elapsed]
+null_resource.mysql-setup: Still creating... [1m0s elapsed]
+null_resource.mysql-setup: Still creating... [1m10s elapsed]
+null_resource.mysql-setup (local-exec): changed: [db02.netology.tech]
+null_resource.mysql-setup: Still creating... [1m20s elapsed]
+null_resource.mysql-setup: Still creating... [1m30s elapsed]
+null_resource.mysql-setup: Still creating... [1m40s elapsed]
+null_resource.mysql-setup (local-exec): changed: [db01.netology.tech]
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : place mysqld config from template] ***********************
+null_resource.mysql-setup (local-exec): changed: [db02.netology.tech]
+null_resource.mysql-setup (local-exec): changed: [db01.netology.tech]
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : set diffirent server_id for slave] ***********************
+null_resource.mysql-setup (local-exec): skipping: [db01.netology.tech]
+null_resource.mysql-setup (local-exec): changed: [db02.netology.tech]
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : Check that the file as flag exists] **********************
+null_resource.mysql-setup (local-exec): ok: [db02.netology.tech]
+null_resource.mysql-setup (local-exec): ok: [db01.netology.tech]
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : enable and start mysql] **********************************
+null_resource.mysql-setup: Still creating... [1m50s elapsed]
+null_resource.mysql-setup (local-exec): ok: [db02.netology.tech]
+null_resource.mysql-setup (local-exec): ok: [db01.netology.tech]
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : first update for root password] **************************
+null_resource.mysql-setup (local-exec): changed: [db02.netology.tech]
+null_resource.mysql-setup (local-exec): changed: [db01.netology.tech]
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : update root accounts for all hosts] **********************
+null_resource.mysql-setup (local-exec): changed: [db02.netology.tech] => (item=db02)
+null_resource.mysql-setup (local-exec): changed: [db01.netology.tech] => (item=db01)
+null_resource.mysql-setup (local-exec): changed: [db02.netology.tech] => (item=127.0.0.1)
+null_resource.mysql-setup (local-exec): changed: [db01.netology.tech] => (item=127.0.0.1)
+null_resource.mysql-setup (local-exec): changed: [db02.netology.tech] => (item=::1)
+null_resource.mysql-setup (local-exec): changed: [db01.netology.tech] => (item=::1)
+null_resource.mysql-setup (local-exec): changed: [db02.netology.tech] => (item=localhost)
+null_resource.mysql-setup (local-exec): changed: [db01.netology.tech] => (item=localhost)
+null_resource.mysql-setup (local-exec): changed: [db02.netology.tech] => (item=192.168.2.%)
+null_resource.mysql-setup (local-exec): changed: [db01.netology.tech] => (item=192.168.2.%)
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : place test mysql config for kostyl] **********************
+null_resource.mysql-setup: Still creating... [2m0s elapsed]
+null_resource.mysql-setup (local-exec): changed: [db02.netology.tech]
+null_resource.mysql-setup (local-exec): changed: [db01.netology.tech]
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : restart mysql] *******************************************
+null_resource.mysql-setup (local-exec): changed: [db02.netology.tech]
+null_resource.mysql-setup (local-exec): changed: [db01.netology.tech]
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : Create a new database with name 'wordpress'] *************
+null_resource.mysql-setup (local-exec): changed: [db02.netology.tech]
+null_resource.mysql-setup (local-exec): changed: [db01.netology.tech]
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : Create database user with name 'wordpress' with privileges to database wordpress] ***
+null_resource.mysql-setup (local-exec): changed: [db02.netology.tech]
+null_resource.mysql-setup (local-exec): changed: [db01.netology.tech]
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : start replication] ***************************************
+null_resource.mysql-setup (local-exec): skipping: [db01.netology.tech]
+null_resource.mysql-setup (local-exec): ok: [db02.netology.tech] => {
+null_resource.mysql-setup (local-exec):     "msg": "here we'll  start replication"
+null_resource.mysql-setup (local-exec): }
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : block changes to master database] ************************
+null_resource.mysql-setup (local-exec): skipping: [db01.netology.tech]
+null_resource.mysql-setup (local-exec): ok: [db02.netology.tech]
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : dump all master host databases] **************************
+null_resource.mysql-setup (local-exec): skipping: [db01.netology.tech]
+null_resource.mysql-setup: Still creating... [2m10s elapsed]
+null_resource.mysql-setup (local-exec): changed: [db02.netology.tech]
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : get master log position] *********************************
+null_resource.mysql-setup (local-exec): skipping: [db01.netology.tech]
+null_resource.mysql-setup (local-exec): ok: [db02.netology.tech]
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : Print return information from the previous task] *********
+null_resource.mysql-setup (local-exec): skipping: [db01.netology.tech]
+null_resource.mysql-setup (local-exec): ok: [db02.netology.tech] => {
+null_resource.mysql-setup (local-exec):     "msg": {
+null_resource.mysql-setup (local-exec):         "Binlog_Do_DB": "",
+null_resource.mysql-setup (local-exec):         "Binlog_Ignore_DB": "",
+null_resource.mysql-setup (local-exec):         "Executed_Gtid_Set": "",
+null_resource.mysql-setup (local-exec):         "File": "mysql-bin.000001",
+null_resource.mysql-setup (local-exec):         "Is_Primary": true,
+null_resource.mysql-setup (local-exec):         "Position": 1102,
+null_resource.mysql-setup (local-exec):         "changed": false,
+null_resource.mysql-setup (local-exec):         "failed": false,
+null_resource.mysql-setup (local-exec):         "queries": []
+null_resource.mysql-setup (local-exec):     }
+null_resource.mysql-setup (local-exec): }
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : start master database] ***********************************
+null_resource.mysql-setup (local-exec): skipping: [db01.netology.tech]
+null_resource.mysql-setup (local-exec): ok: [db02.netology.tech]
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : Import dump.sql] *****************************************
+null_resource.mysql-setup (local-exec): skipping: [db01.netology.tech]
+null_resource.mysql-setup (local-exec): changed: [db02.netology.tech]
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : Print return information from the previous task] *********
+null_resource.mysql-setup (local-exec): skipping: [db01.netology.tech]
+null_resource.mysql-setup (local-exec): ok: [db02.netology.tech] => {
+null_resource.mysql-setup (local-exec):     "msg": [
+null_resource.mysql-setup (local-exec):         "mysql-bin.000001",
+null_resource.mysql-setup (local-exec):         "1102"
+null_resource.mysql-setup (local-exec):     ]
+null_resource.mysql-setup (local-exec): }
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : start replication] ***************************************
+null_resource.mysql-setup: Still creating... [2m20s elapsed]
+null_resource.mysql-setup (local-exec): skipping: [db01.netology.tech]
+null_resource.mysql-setup (local-exec): changed: [db02.netology.tech]
+
+null_resource.mysql-setup (local-exec): TASK [mysql-install : start master database] ***********************************
+null_resource.mysql-setup (local-exec): skipping: [db01.netology.tech]
+null_resource.mysql-setup (local-exec): ok: [db02.netology.tech]
+
+null_resource.mysql-setup (local-exec): PLAY RECAP *********************************************************************
+null_resource.mysql-setup (local-exec): db01.netology.tech         : ok=12   changed=8    unreachable=0    failed=0    skipped=11   rescued=0    ignored=0
+null_resource.mysql-setup (local-exec): db02.netology.tech         : ok=23   changed=12   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+null_resource.mysql-setup: Creation complete after 2m22s [id=3535273415741830328]
+null_resource.gitlab-setup: Creating...
+null_resource.gitlab-setup: Provisioning with 'local-exec'...
+null_resource.gitlab-setup (local-exec): Executing: ["/bin/sh" "-c" "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/gitlab.yml"]
+
+null_resource.gitlab-setup (local-exec): PLAY [prepare gitlab] **********************************************************
+
+null_resource.gitlab-setup (local-exec): TASK [check root password for gitlab] ******************************************
+null_resource.gitlab-setup (local-exec): changed: [gitlab.netology.tech]
+
+null_resource.gitlab-setup (local-exec): TASK [print password] **********************************************************
+null_resource.gitlab-setup (local-exec): ok: [gitlab.netology.tech] => {
+null_resource.gitlab-setup (local-exec):     "msg": "v9DXDM1b2p9gJGfcqJ45/kpQA5ETqaJSNuvHFXEFFs4="
+null_resource.gitlab-setup (local-exec): }
+
+null_resource.gitlab-setup (local-exec): TASK [save password to tmp file] ***********************************************
+null_resource.gitlab-setup (local-exec): changed: [gitlab.netology.tech -> localhost]
+
+null_resource.gitlab-setup (local-exec): TASK [find runner registration token] ******************************************
+null_resource.gitlab-setup: Still creating... [10s elapsed]
+null_resource.gitlab-setup: Still creating... [20s elapsed]
+null_resource.gitlab-setup: Still creating... [30s elapsed]
+null_resource.gitlab-setup (local-exec): changed: [gitlab.netology.tech]
+
+null_resource.gitlab-setup (local-exec): TASK [print token for runner] **************************************************
+null_resource.gitlab-setup (local-exec): ok: [gitlab.netology.tech] => {
+null_resource.gitlab-setup (local-exec):     "msg": "fRwiQq_U1dJs6mBsRJ15"
+null_resource.gitlab-setup (local-exec): }
+
+null_resource.gitlab-setup (local-exec): TASK [save token to tmp file] **************************************************
+null_resource.gitlab-setup (local-exec): changed: [gitlab.netology.tech -> localhost]
+
+null_resource.gitlab-setup (local-exec): TASK [add iptables rule for node_exporter] *************************************
+null_resource.gitlab-setup (local-exec): changed: [gitlab.netology.tech]
+
+null_resource.gitlab-setup (local-exec): TASK [copy ssh key] ************************************************************
+null_resource.gitlab-setup (local-exec): changed: [gitlab.netology.tech]
+
+null_resource.gitlab-setup (local-exec): TASK [print instructions for initialisation repository] ************************
+null_resource.gitlab-setup (local-exec): ok: [gitlab.netology.tech] => {
+null_resource.gitlab-setup (local-exec):     "msg": "cd ~ && gunzip -d /tmp/wordpress.tar.gz && tar -xf /tmp/wordpress.tar && cp /tmp/wp-config.php ./wordpress && cd wordpress && git init && git add * && git commit -m 'initial' && git branch -M main  && git -c http.sslVerify=false push https://root:\"v9DXDM1b2p9gJGfcqJ45/kpQA5ETqaJSNuvHFXEFFs4=\"@gitlab.netology.tech/root/wordpress main && cat /home/vagrant/diplom/devops-diplom/ansible/stack/.gitlab-ci.yml"
+null_resource.gitlab-setup (local-exec): }
+
+null_resource.gitlab-setup (local-exec): PLAY RECAP *********************************************************************
+null_resource.gitlab-setup (local-exec): gitlab.netology.tech       : ok=9    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+null_resource.gitlab-setup: Creation complete after 40s [id=291660995532843283]
+null_resource.monitoring-setup: Creating...
+null_resource.monitoring-setup: Provisioning with 'local-exec'...
+null_resource.monitoring-setup (local-exec): Executing: ["/bin/sh" "-c" "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/monitoring.yml"]
+
+null_resource.monitoring-setup (local-exec): PLAY [install docker engine and docker-compose plugin at all hosts] ************
+
+null_resource.monitoring-setup (local-exec): TASK [Gathering Facts] *********************************************************
+null_resource.monitoring-setup (local-exec): ok: [gitlab.netology.tech]
+null_resource.monitoring-setup (local-exec): ok: [gate.netology.tech]
+null_resource.monitoring-setup (local-exec): ok: [db02.netology.tech]
+null_resource.monitoring-setup (local-exec): ok: [db01.netology.tech]
+null_resource.monitoring-setup (local-exec): ok: [app.netology.tech]
+null_resource.monitoring-setup (local-exec): ok: [runner.netology.tech]
+null_resource.monitoring-setup (local-exec): ok: [monitoring.netology.tech]
+
+null_resource.monitoring-setup (local-exec): TASK [install-docker : Install aptitude using apt] *****************************
+null_resource.monitoring-setup: Still creating... [10s elapsed]
+null_resource.monitoring-setup (local-exec): changed: [db02.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [db01.netology.tech]
+null_resource.monitoring-setup: Still creating... [20s elapsed]
+null_resource.monitoring-setup (local-exec): changed: [gate.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [app.netology.tech]
+null_resource.monitoring-setup: Still creating... [30s elapsed]
+null_resource.monitoring-setup (local-exec): changed: [gitlab.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [runner.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [monitoring.netology.tech]
+
+null_resource.monitoring-setup (local-exec): TASK [install-docker : Install software for monitoring etc] ********************
+null_resource.monitoring-setup: Still creating... [40s elapsed]
+null_resource.monitoring-setup: Still creating... [50s elapsed]
+null_resource.monitoring-setup: Still creating... [1m0s elapsed]
+null_resource.monitoring-setup: Still creating... [1m10s elapsed]
+null_resource.monitoring-setup: Still creating... [1m20s elapsed]
+null_resource.monitoring-setup (local-exec): changed: [gitlab.netology.tech]
+null_resource.monitoring-setup: Still creating... [1m30s elapsed]
+null_resource.monitoring-setup: Still creating... [1m40s elapsed]
+null_resource.monitoring-setup (local-exec): changed: [gate.netology.tech]
+null_resource.monitoring-setup: Still creating... [1m50s elapsed]
+null_resource.monitoring-setup (local-exec): changed: [db02.netology.tech]
+null_resource.monitoring-setup: Still creating... [2m0s elapsed]
+null_resource.monitoring-setup: Still creating... [2m10s elapsed]
+null_resource.monitoring-setup (local-exec): changed: [runner.netology.tech]
+null_resource.monitoring-setup: Still creating... [2m20s elapsed]
+null_resource.monitoring-setup (local-exec): changed: [monitoring.netology.tech]
+null_resource.monitoring-setup: Still creating... [2m30s elapsed]
+null_resource.monitoring-setup: Still creating... [2m40s elapsed]
+null_resource.monitoring-setup (local-exec): changed: [db01.netology.tech]
+null_resource.monitoring-setup: Still creating... [2m50s elapsed]
+null_resource.monitoring-setup (local-exec): changed: [app.netology.tech]
+
+null_resource.monitoring-setup (local-exec): TASK [install-docker : Add Docker GPG apt Key] *********************************
+null_resource.monitoring-setup (local-exec): changed: [gate.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [gitlab.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [app.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [db02.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [db01.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [runner.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [monitoring.netology.tech]
+
+null_resource.monitoring-setup (local-exec): TASK [install-docker : Add Docker Repository] **********************************
+null_resource.monitoring-setup: Still creating... [3m0s elapsed]
+null_resource.monitoring-setup (local-exec): changed: [app.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [gate.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [db02.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [runner.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [gitlab.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [db01.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [monitoring.netology.tech]
+
+null_resource.monitoring-setup (local-exec): TASK [install-docker : Install docker] *****************************************
+null_resource.monitoring-setup: Still creating... [3m10s elapsed]
+null_resource.monitoring-setup: Still creating... [3m20s elapsed]
+null_resource.monitoring-setup: Still creating... [3m30s elapsed]
+null_resource.monitoring-setup: Still creating... [3m40s elapsed]
+null_resource.monitoring-setup: Still creating... [3m50s elapsed]
+null_resource.monitoring-setup (local-exec): changed: [db02.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [gate.netology.tech]
+null_resource.monitoring-setup: Still creating... [4m0s elapsed]
+null_resource.monitoring-setup (local-exec): changed: [db01.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [gitlab.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [app.netology.tech]
+null_resource.monitoring-setup: Still creating... [4m10s elapsed]
+null_resource.monitoring-setup: Still creating... [4m20s elapsed]
+null_resource.monitoring-setup (local-exec): changed: [runner.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [monitoring.netology.tech]
+
+null_resource.monitoring-setup (local-exec): TASK [install-docker : Add the user vagrant to group docker] *******************
+null_resource.monitoring-setup (local-exec): changed: [gate.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [gitlab.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [db02.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [app.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [db01.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [runner.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [monitoring.netology.tech]
+
+null_resource.monitoring-setup (local-exec): TASK [install-docker : Enable docker daemon] ***********************************
+null_resource.monitoring-setup (local-exec): ok: [gate.netology.tech]
+null_resource.monitoring-setup (local-exec): ok: [gitlab.netology.tech]
+null_resource.monitoring-setup (local-exec): ok: [db02.netology.tech]
+null_resource.monitoring-setup (local-exec): ok: [db01.netology.tech]
+null_resource.monitoring-setup (local-exec): ok: [app.netology.tech]
+null_resource.monitoring-setup (local-exec): ok: [runner.netology.tech]
+null_resource.monitoring-setup (local-exec): ok: [monitoring.netology.tech]
+
+null_resource.monitoring-setup (local-exec): TASK [install-docker : Install Docker Module for Python] ***********************
+null_resource.monitoring-setup (local-exec): ok: [db02.netology.tech]
+null_resource.monitoring-setup (local-exec): ok: [app.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [gate.netology.tech]
+null_resource.monitoring-setup (local-exec): ok: [db01.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [gitlab.netology.tech]
+null_resource.monitoring-setup: Still creating... [4m30s elapsed]
+null_resource.monitoring-setup (local-exec): ok: [runner.netology.tech]
+null_resource.monitoring-setup (local-exec): ok: [monitoring.netology.tech]
+
+null_resource.monitoring-setup (local-exec): TASK [install-docker : Synchronization] ****************************************
+null_resource.monitoring-setup: Still creating... [4m40s elapsed]
+null_resource.monitoring-setup: Still creating... [4m50s elapsed]
+null_resource.monitoring-setup (local-exec): changed: [gate.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [gitlab.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [db02.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [app.netology.tech]
+null_resource.monitoring-setup: Still creating... [5m0s elapsed]
+null_resource.monitoring-setup (local-exec): changed: [db01.netology.tech]
+null_resource.monitoring-setup: Still creating... [5m10s elapsed]
+null_resource.monitoring-setup (local-exec): changed: [runner.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [monitoring.netology.tech]
+
+null_resource.monitoring-setup (local-exec): TASK [install-docker : Pull all images in compose] *****************************
+null_resource.monitoring-setup: Still creating... [5m20s elapsed]
+null_resource.monitoring-setup (local-exec): changed: [gitlab.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [db02.netology.tech]
+null_resource.monitoring-setup (local-exec): skipping: [monitoring.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [app.netology.tech]
+null_resource.monitoring-setup: Still creating... [5m30s elapsed]
+null_resource.monitoring-setup (local-exec): changed: [db01.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [gate.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [runner.netology.tech]
+
+null_resource.monitoring-setup (local-exec): TASK [install-docker : Up all services in compose] *****************************
+null_resource.monitoring-setup: Still creating... [5m40s elapsed]
+null_resource.monitoring-setup (local-exec): changed: [gitlab.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [db01.netology.tech]
+null_resource.monitoring-setup (local-exec): skipping: [monitoring.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [gate.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [db02.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [app.netology.tech]
+null_resource.monitoring-setup (local-exec): changed: [runner.netology.tech]
+
+null_resource.monitoring-setup (local-exec): PLAY [start monitoring on special server] **************************************
+
+null_resource.monitoring-setup (local-exec): TASK [Gathering Facts] *********************************************************
+null_resource.monitoring-setup (local-exec): ok: [monitoring.netology.tech]
+
+null_resource.monitoring-setup (local-exec): TASK [monitoring : Pull all images in compose] *********************************
+null_resource.monitoring-setup: Still creating... [5m50s elapsed]
+null_resource.monitoring-setup: Still creating... [6m0s elapsed]
+null_resource.monitoring-setup (local-exec): changed: [monitoring.netology.tech]
+
+null_resource.monitoring-setup (local-exec): TASK [monitoring : Up all services in compose] *********************************
+null_resource.monitoring-setup (local-exec): changed: [monitoring.netology.tech]
+
+null_resource.monitoring-setup (local-exec): PLAY RECAP *********************************************************************
+null_resource.monitoring-setup (local-exec): app.netology.tech          : ok=12   changed=9    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+null_resource.monitoring-setup (local-exec): db01.netology.tech         : ok=12   changed=9    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+null_resource.monitoring-setup (local-exec): db02.netology.tech         : ok=12   changed=9    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+null_resource.monitoring-setup (local-exec): gate.netology.tech         : ok=12   changed=10   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+null_resource.monitoring-setup (local-exec): gitlab.netology.tech       : ok=12   changed=10   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+null_resource.monitoring-setup (local-exec): monitoring.netology.tech   : ok=13   changed=9    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+null_resource.monitoring-setup (local-exec): runner.netology.tech       : ok=12   changed=9    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+null_resource.monitoring-setup: Creation complete after 6m7s [id=6674427599431773624]
+null_resource.gitlab-runner: Creating...
+null_resource.gitlab-runner: Provisioning with 'local-exec'...
+null_resource.gitlab-runner (local-exec): Executing: ["/bin/sh" "-c" "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/runner.yml"]
+
+null_resource.gitlab-runner (local-exec): PLAY [play start runner] *******************************************************
+
+null_resource.gitlab-runner (local-exec): TASK [Gathering Facts] *********************************************************
+null_resource.gitlab-runner (local-exec): ok: [runner.netology.tech]
+
+null_resource.gitlab-runner (local-exec): TASK [Pull  Docker image] ******************************************************
+null_resource.gitlab-runner: Still creating... [10s elapsed]
+null_resource.gitlab-runner (local-exec): changed: [runner.netology.tech]
+
+null_resource.gitlab-runner (local-exec): TASK [print token for runner] **************************************************
+null_resource.gitlab-runner (local-exec): ok: [runner.netology.tech] => {
+null_resource.gitlab-runner (local-exec):     "msg": "fRwiQq_U1dJs6mBsRJ15"
+null_resource.gitlab-runner (local-exec): }
+
+null_resource.gitlab-runner (local-exec): TASK [Reset ssh connection to allow user changes to affect 'current login user'] ***
+
+null_resource.gitlab-runner (local-exec): TASK [Create directory for docker volume] **************************************
+null_resource.gitlab-runner (local-exec): changed: [runner.netology.tech]
+
+null_resource.gitlab-runner (local-exec): TASK [Check that the somefile.conf exists] *************************************
+null_resource.gitlab-runner: Still creating... [20s elapsed]
+null_resource.gitlab-runner (local-exec): ok: [runner.netology.tech]
+
+null_resource.gitlab-runner (local-exec): TASK [register runner] *********************************************************
+null_resource.gitlab-runner (local-exec): changed: [runner.netology.tech]
+
+null_resource.gitlab-runner (local-exec): TASK [start registered runner] *************************************************
+null_resource.gitlab-runner (local-exec): changed: [runner.netology.tech]
+
+null_resource.gitlab-runner (local-exec): TASK [copy ssh key] ************************************************************
+null_resource.gitlab-runner (local-exec): changed: [runner.netology.tech]
+
+null_resource.gitlab-runner (local-exec): TASK [copy script for rsync in runner-container] *******************************
+null_resource.gitlab-runner: Still creating... [30s elapsed]
+null_resource.gitlab-runner (local-exec): changed: [runner.netology.tech]
+
+null_resource.gitlab-runner (local-exec): TASK [install rsync in runner container] ***************************************
+null_resource.gitlab-runner (local-exec): changed: [runner.netology.tech]
+
+null_resource.gitlab-runner (local-exec): TASK [print instructions for initialisation repository] ************************
+null_resource.gitlab-runner (local-exec): ok: [runner.netology.tech] => {
+null_resource.gitlab-runner (local-exec):     "msg": "cd ~ && gunzip -d /tmp/wordpress.tar.gz && tar -xf /tmp/wordpress.tar && cp /tmp/wp-config.php ./wordpress && cd wordpress && git init && git add * && git commit -m 'initial' && git branch -M main  && git -c http.sslVerify=false push https://root:v9DXDM1b2p9gJGfcqJ45/kpQA5ETqaJSNuvHFXEFFs4=@gitlab.netology.tech/root/wordpress main && cat /home/vagrant/diplom/devops-diplom/ansible/stack/.gitlab-ci.yml"
+null_resource.gitlab-runner (local-exec): }
+
+null_resource.gitlab-runner (local-exec): PLAY RECAP *********************************************************************
+null_resource.gitlab-runner (local-exec): runner.netology.tech       : ok=11   changed=7    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+null_resource.gitlab-runner: Creation complete after 31s [id=1578195172578658101]
+
+Apply complete! Resources: 20 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+external_ip_address_appvm = ""
+external_ip_address_dbvm1 = ""
+external_ip_address_dbvm2 = ""
+external_ip_address_gate = "51.250.13.130"
+external_ip_address_gitlabvm = ""
+external_ip_address_monitorinvm = ""
+external_ip_address_runnervm = ""
+internal_ip_address_appvm = "192.168.2.203"
+internal_ip_address_dbvm1 = "192.168.2.201"
+internal_ip_address_dbvm2 = "192.168.2.202"
+internal_ip_address_gate = "192.168.2.200"
+internal_ip_address_gitlabvm = "192.168.2.204"
+internal_ip_address_monitorinvm = "192.168.2.206"
+internal_ip_address_runnervm = "192.168.2.205"
+private-subnet = "e9bnmp8ufoq586nm78a1"
+vagrant@server1:~/diplom/devops-diplom/terraform$ 
+
