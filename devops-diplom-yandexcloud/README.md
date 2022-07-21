@@ -181,7 +181,7 @@ Terraform will perform the following actions:
 ............
 
 ```
-Ну и так далее. Полный вывод работы терраформа и ансибла будет приложен отдельным файлом, ссылка в начале работы.   
+Ну и так далее. Полный вывод работы терраформа и ансибла будет приложен отдельным файлом, ссылка в конце работы.   
 
 Цель:
 
@@ -542,6 +542,9 @@ https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandex
 2. Репозиторий со всеми Ansible ролями и готовность продемонстрировать установку всех сервисов с нуля.
 Ansible запускается из Terraform, так что оно все в одном репозитории:  
 https://github.com/AndreyIvanov87/devops-diplom  
+
+Лог работы Terraform+Ansible: https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/terraform-ansible-log.txt  
+
 
 3. Скриншоты веб-интерфейсов всех сервисов работающих по HTTPS на вашем доменном имени.
   - `https://www.you.domain` (WordPress)
