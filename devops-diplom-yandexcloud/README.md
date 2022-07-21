@@ -524,13 +524,13 @@ ___
 3. В Grafana есть дашборд отображающий метрики из MySQL (*).
 4. В Grafana есть дашборд отображающий метрики из WordPress (*).
 
-*Примечание: дашборды со звёздочкой являются опциональными заданиями повышенной сложности их выполнение желательно, но не обязательно.*
+*Примечание: дашборды со звёздочкой являются опциональными заданиями повышенной сложности их выполнение желательно, но не обязательно.*  
+  
+Пароль на prometheus и alertmanager задается в ansible/roles/nginx/templates/.htpasswd (admin:admin)  
 
-Пароль на prometheus и alertmanager задается в ansible/roles/nginx/templates/.htpasswd (admin:admin)
-
-https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/prometheus.png
-https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/grafana.png
-https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/alertmanager.png
+https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/prometheus.png  
+https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/grafana.png  
+https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/alertmanager.png  
 
 
 
@@ -539,11 +539,12 @@ https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandex
 ## Что необходимо для сдачи задания?
 
 1. Репозиторий со всеми Terraform манифестами и готовность продемонстрировать создание всех ресурсов с нуля.
-2. Репозиторий со всеми Ansible ролями и готовность продемонстрировать установку всех сервисов с нуля.
+2. Репозиторий со всеми Ansible ролями и готовность продемонстрировать установку всех сервисов с нуля.  
 Ansible запускается из Terraform, так что оно все в одном репозитории:  
 https://github.com/AndreyIvanov87/devops-diplom  
 
-Лог работы Terraform+Ansible: https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/terraform-ansible-log.txt  
+Лог работы Terraform+Ansible:   
+https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/terraform-ansible-log.txt  
 
 
 3. Скриншоты веб-интерфейсов всех сервисов работающих по HTTPS на вашем доменном имени.
