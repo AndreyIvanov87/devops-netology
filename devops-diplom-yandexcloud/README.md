@@ -412,7 +412,7 @@ https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandex
 
 
 Gitlab установлен, в интерфейсе видно что доступен раннер, а так же создан пустой публичный репозиторий root/wordpress  
-Пароль есть в конце вывода работы ansible.
+Пароль есть в конце вывода работы ansible.  
 https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/gitlab-runner.png  
 
 ```bash 
@@ -477,7 +477,7 @@ deploy-job:      # This job runs in the deploy stage.
 
 Вывод скрипта вставляем в редактор .gitlab-ci.yml  
 Вносим изменения в readme.html, коммитим, создаем тег v0.0.1  
-https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/gitlab-runner.png  
+https://github.com/AndreyIvanov87/devops-netology/blob/main/devops-diplom-yandexcloud/deploy-job.png  
 
 Видим изменения на сервере с wordpress
 ```bash
